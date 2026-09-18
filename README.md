@@ -1,8 +1,10 @@
 # Monty Hall Problem &mdash; Interactive Rust + WebAssembly Simulation
 
+[![Netlify Status](https://img.shields.io/badge/Live%20Deploy-Netlify-00C7B7?style=for-the-badge&logo=netlify)](https://monty-hall-simulation-divyesh.netlify.app)
 [![GitHub Pages](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://divyesh172.github.io/monty-hall-simulation/)
 
-**🌐 Live Interactive Exhibit:** [https://divyesh172.github.io/monty-hall-simulation/](https://divyesh172.github.io/monty-hall-simulation/)
+- **🌐 Live on Netlify:** [https://monty-hall-simulation-divyesh.netlify.app](https://monty-hall-simulation-divyesh.netlify.app)
+- **🌐 Live on GitHub Pages:** [https://divyesh172.github.io/monty-hall-simulation/](https://divyesh172.github.io/monty-hall-simulation/)
 
 An interactive, high-performance mathematical simulation of the **Monty Hall Paradox**, powered by **Rust** and **WebAssembly**, designed for math museums, classroom whiteboards, and all mobile/desktop devices.
 
