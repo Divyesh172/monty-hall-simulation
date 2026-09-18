@@ -751,6 +751,35 @@ canvas {
   height: 230px;
 }
 
+.takeaway-banner {
+  background: #FFFBEB;
+  border: 1px solid #FCD34D;
+  border-left: 5px solid #F59E0B;
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.takeaway-icon {
+  font-size: 1.6rem;
+  flex-shrink: 0;
+  line-height: 1;
+}
+
+.takeaway-text {
+  font-size: 0.95rem;
+  color: #78350F;
+  line-height: 1.5;
+}
+
+.takeaway-text strong {
+  color: #451A03;
+  font-weight: 800;
+}
+
 /* --------------------------------------------------------------------------
    MODULE 3: THE INTUITION WORKSHOP
    -------------------------------------------------------------------------- */

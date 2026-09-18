@@ -1,25 +1,25 @@
-// Pedagogical Visualizers & Educational Guides based on Maths Ideas.pdf
+// Educational Discussion Questions & Export Utility
 
 export const TEACHER_QUESTIONS = [
   {
-    q: "Which choice do you think gives a better chance? Why?",
-    context: "Ask students before showing any mathematical proofs or automated simulations.",
-    insight: "Most learners intuitively assume 50/50 symmetry ('two doors left, so equal odds'). This creates the cognitive dissonance needed for deep mathematical inquiry."
+    q: "Which choice gives you a better chance of winning: Keeping your door or Switching?",
+    context: "Ask this before showing any simulations or math charts.",
+    insight: "Almost everyone says 50/50! We naturally think: 'There are two doors left, so each has an equal chance.' Seeing that switching actually wins 2 out of 3 times sparks genuine curiosity."
   },
   {
-    q: "Does your experimental result match your initial prediction?",
-    context: "Ask after playing 10 manual rounds on the Stage and running 1,000 trials in the Laboratory.",
-    insight: "Students observe empirical convergence: switching consistently yields ~66.7% (2/3) wins, directly shattering the 50/50 illusion."
+    q: "Did your test results match your original guess?",
+    context: "Ask this after playing a few rounds on the stage and running a test in the Fast Simulator.",
+    insight: "Testing hundreds of games proves that switching consistently wins around 67% of the time. Real evidence is the best way to break the 50/50 illusion."
   },
   {
-    q: "Why does opening one door change the information available to us?",
-    context: "Focus on the host's constraints and conditional probability.",
-    insight: "Monty is not a random selector! He is an active information filter: he always avoids the car and avoids your door. When he opens a goat, the entire 2/3 probability mass of the other two doors concentrates into the single unopened door."
+    q: "Why does the host opening a door give us valuable information?",
+    context: "Focus on the fact that the host knows where the car is.",
+    insight: "The host is not picking at random! He always avoids the car and avoids your door. When he opens a goat, he does the hard work for you by eliminating a losing door from the other pair."
   },
   {
-    q: "Can we represent the possible outcomes systematically?",
-    context: "Guide students to construct a complete sample space truth table.",
-    insight: "Breaking the 3 equally likely initial door placements into a 3-case permutation table shows that switching wins in 2 out of 3 cases."
+    q: "How can we map out every possible outcome to prove it?",
+    context: "Walk through all three doors where the car could be placed.",
+    insight: "In 2 out of 3 possibilities, your very first pick is a goat. In both of those cases, switching guarantees you win the car! Only in the 1 rare case where you started with the car does staying win."
   }
 ];
 
@@ -33,7 +33,7 @@ export function renderTeacherQuestions(containerId) {
       <h4 class="inquiry-title">${item.q}</h4>
       <p class="inquiry-context"><strong>When to ask:</strong> ${item.context}</p>
       <div class="inquiry-solution">
-        <strong>Mathematical Principle:</strong> ${item.insight}
+        <strong>The Simple Explanation:</strong> ${item.insight}
       </div>
     </div>
   `).join('');
@@ -42,18 +42,18 @@ export function renderTeacherQuestions(containerId) {
 export function exportSessionCSV(stats) {
   const csvContent = "data:text/csv;charset=utf-8," 
     + "Metric,Value\n"
-    + `Total Rounds Played,${stats.total}\n`
-    + `Stay Wins,${stats.stayWins}\n`
+    + `Total Games Played,${stats.total}\n`
+    + `Keep Wins,${stats.stayWins}\n`
     + `Switch Wins,${stats.switchWins}\n`
-    + `Stay Win Rate,${stats.total > 0 ? ((stats.stayWins / stats.total) * 100).toFixed(2) : 0}%\n`
-    + `Switch Win Rate,${stats.total > 0 ? ((stats.switchWins / stats.total) * 100).toFixed(2) : 0}%\n`
-    + `Theoretical Stay Rate,33.33%\n`
-    + `Theoretical Switch Rate,66.67%\n`;
+    + `Keep Win Rate,${stats.total > 0 ? ((stats.stayWins / stats.total) * 100).toFixed(1) : 0}%\n`
+    + `Switch Win Rate,${stats.total > 0 ? ((stats.switchWins / stats.total) * 100).toFixed(1) : 0}%\n`
+    + `Expected Keep Rate,33.3%\n`
+    + `Expected Switch Rate,66.7%\n`;
 
   const encodedUri = encodeURI(csvContent);
   const link = document.createElement("a");
   link.setAttribute("href", encodedUri);
-  link.setAttribute("download", `monty_hall_session_data_${Date.now()}.csv`);
+  link.setAttribute("download", `monty_hall_score_${Date.now()}.csv`);
   document.body.appendChild(link);
   link.click();
   document.body.removeChild(link);

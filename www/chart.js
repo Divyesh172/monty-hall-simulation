@@ -125,7 +125,7 @@ export class SimulationCharts {
     ctx.fillText(`${(stayRate * 100).toFixed(1)}%`, stayX + barW / 2, padTop + chartH - stayBarH - 8 * dpr);
     ctx.font = `bold ${11 * dpr}px 'Plus Jakarta Sans', sans-serif`;
     ctx.fillStyle = '#586071';
-    ctx.fillText('ALWAYS STAY', stayX + barW / 2, padTop + chartH + 18 * dpr);
+    ctx.fillText('KEEP DOOR', stayX + barW / 2, padTop + chartH + 18 * dpr);
     ctx.font = `${10 * dpr}px 'Plus Jakarta Sans', sans-serif`;
     ctx.fillStyle = '#8A92A3';
     ctx.fillText(`(${stats.stay_wins || 0} wins)`, stayX + barW / 2, padTop + chartH + 32 * dpr);
@@ -136,7 +136,7 @@ export class SimulationCharts {
     ctx.fillText(`${(switchRate * 100).toFixed(1)}%`, switchX + barW / 2, padTop + chartH - switchBarH - 8 * dpr);
     ctx.font = `bold ${11 * dpr}px 'Plus Jakarta Sans', sans-serif`;
     ctx.fillStyle = '#586071';
-    ctx.fillText('ALWAYS SWITCH', switchX + barW / 2, padTop + chartH + 18 * dpr);
+    ctx.fillText('SWITCH DOOR', switchX + barW / 2, padTop + chartH + 18 * dpr);
     ctx.font = `${10 * dpr}px 'Plus Jakarta Sans', sans-serif`;
     ctx.fillStyle = '#8A92A3';
     ctx.fillText(`(${stats.switch_wins || 0} wins)`, switchX + barW / 2, padTop + chartH + 32 * dpr);
@@ -192,7 +192,7 @@ export class SimulationCharts {
       ctx.fillStyle = '#8A92A3';
       ctx.font = `bold ${12 * dpr}px 'Plus Jakarta Sans', sans-serif`;
       ctx.textAlign = 'center';
-      ctx.fillText('Click Run to generate live convergence stream', padLeft + chartW / 2, padTop + chartH / 2);
+      ctx.fillText('Click Simulate Games to watch the win rates', padLeft + chartW / 2, padTop + chartH / 2);
       return;
     }
 
@@ -228,7 +228,7 @@ export class SimulationCharts {
     ctx.textAlign = 'left';
     ctx.fillText('1', padLeft, padTop + chartH + 18 * dpr);
     ctx.textAlign = 'center';
-    ctx.fillText(`Trials (N = ${(totalTrials || len).toLocaleString()})`, padLeft + chartW / 2, padTop + chartH + 20 * dpr);
+    ctx.fillText(`Games Played: ${(totalTrials || len).toLocaleString()}`, padLeft + chartW / 2, padTop + chartH + 20 * dpr);
     ctx.textAlign = 'right';
     ctx.fillText(`${(totalTrials || len).toLocaleString()}`, padLeft + chartW, padTop + chartH + 18 * dpr);
   }
