@@ -1,0 +1,444 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
+  <title>The Monty Hall Exhibit &mdash; An Interactive Science Adventure</title>
+  <meta name="description" content="A warm, tactile, and delightful interactive science exhibit exploring the Monty Hall paradox, powered by Rust and WebAssembly." />
+  <link rel="stylesheet" href="styles.css" />
+  <link rel="manifest" href="manifest.json" />
+  <meta name="theme-color" content="#FBF8F3" />
+</head>
+<body>
+  <div class="app-wrapper">
+    <!-- Top Persistent Navigation & Breadcrumb -->
+    <header class="top-nav">
+      <div class="breadcrumb-area">
+        <a href="#/" class="nav-home-btn" title="Return to Exhibit Rotunda">
+          <span>🏛️</span>
+          <span>Exhibit Rotunda</span>
+        </a>
+        <span class="breadcrumb-separator">/</span>
+        <span id="breadcrumbCurrent" class="current-page-label">Welcome</span>
+      </div>
+
+      <div class="nav-telemetry">
+        <div class="session-badge-pill" id="sessionPill" title="Your live session stats">
+          <span>Plays: <strong id="navTotalPlays">0</strong></span>
+          <span>&bull;</span>
+          <span style="color: var(--color-sage);">Switch: <strong id="navSwitchWins">0</strong></span>
+          <span>&bull;</span>
+          <span style="color: var(--color-teal);">Stay: <strong id="navStayWins">0</strong></span>
+        </div>
+
+        <button id="btnMusicToggle" class="icon-circle-btn" title="Toggle Background Music (BGM)">
+          <span id="musicIcon">🎵</span>
+        </button>
+        <button id="btnSoundToggle" class="icon-circle-btn" title="Toggle Sound Effects (SFX)">
+          <span id="soundIcon">🔊</span>
+        </button>
+        <button id="btnResetSession" class="icon-circle-btn" title="Reset Session Stats">
+          <span>↺</span>
+        </button>
+      </div>
+    </header>
+
+    <main id="mainApp">
+      <!-- ===================================================================
+           PAGE 0: THE EXHIBIT ROTUNDA (HUB)
+           =================================================================== -->
+      <section id="view-hub" class="page-view active">
+        <div class="rotunda-hero">
+          <div class="rotunda-hero-text">
+            <span class="hero-tag">Exhibit 10 &bull; Maths Ideas Museum</span>
+            <h2>The Monty Hall Paradox</h2>
+            <p>Step into the world's most counter-intuitive probability challenge. Behind one door is a sports car; behind the others are goats. Can you beat the odds?</p>
+          </div>
+          <div class="rotunda-illustration">🎩🚪🚗</div>
+        </div>
+
+        <div class="pavilions-grid">
+          <!-- Pavilion 1 -->
+          <a href="#/game-show" class="pavilion-card">
+            <div>
+              <div class="pavilion-header">
+                <span class="pavilion-badge badge-orange">Interactive Experience</span>
+                <span class="pavilion-icon">🎭</span>
+              </div>
+              <h3>1. The Game Show</h3>
+              <p>Step onto the live stage with Monty! Pick a door, watch Monty reveal a goat, and make the ultimate choice: Stay or Switch?</p>
+            </div>
+            <div class="pavilion-footer">
+              <span>Enter Stage ➔</span>
+              <span id="hubGameBadge">0 rounds played</span>
+            </div>
+          </a>
+
+          <!-- Pavilion 2 -->
+          <a href="#/laboratory" class="pavilion-card">
+            <div>
+              <div class="pavilion-header">
+                <span class="pavilion-badge badge-teal">Monte Carlo Telemetry</span>
+                <span class="pavilion-icon">⚡</span>
+              </div>
+              <h3>2. The Laboratory</h3>
+              <p>Harness our high-speed Rust + WebAssembly engine to simulate up to 100,000 games in milliseconds and watch the Law of Large Numbers in real-time.</p>
+            </div>
+            <div class="pavilion-footer">
+              <span>Launch Simulator ➔</span>
+              <span>Rust Wasm Powered</span>
+            </div>
+          </a>
+
+          <!-- Pavilion 3 -->
+          <a href="#/intuition" class="pavilion-card">
+            <div>
+              <div class="pavilion-header">
+                <span class="pavilion-badge badge-amber">Conceptual Breakthrough</span>
+                <span class="pavilion-icon">🧠</span>
+              </div>
+              <h3>3. The Intuition Workshop</h3>
+              <p>Why does switching work? Scale the problem to 100 doors to shatter the 50/50 illusion and visualize the Set Grouping model.</p>
+            </div>
+            <div class="pavilion-footer">
+              <span>Explore Intuition ➔</span>
+              <span>100-Doors Scaler</span>
+            </div>
+          </a>
+
+          <!-- Pavilion 4 -->
+          <a href="#/educator" class="pavilion-card">
+            <div>
+              <div class="pavilion-header">
+                <span class="pavilion-badge badge-purple">Classroom & Proofs</span>
+                <span class="pavilion-icon">🎓</span>
+              </div>
+              <h3>4. The Educator's Deck</h3>
+              <p>Guided inquiry questions from Maths Ideas.pdf, the Marilyn vos Savant letter controversy, permutation truth tables, and CSV export.</p>
+            </div>
+            <div class="pavilion-footer">
+              <span>Open Educator Kit ➔</span>
+              <span>Teaching Prompts</span>
+            </div>
+          </a>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PAGE 1: THE GAME SHOW (MODULE 1)
+           =================================================================== -->
+      <section id="view-game-show" class="page-view">
+        <div class="stage-container">
+          <!-- Monty Dialogue -->
+          <div class="monty-dialogue-card">
+            <div class="monty-avatar">🎩</div>
+            <div class="monty-speech">
+              <p id="montyMessage">"Step right up! Behind one of these three wooden doors is a brand-new <strong>Sports Car</strong>, and behind the other two are <strong>Goats</strong>. Tap any door to make your initial pick!"</p>
+            </div>
+          </div>
+
+          <!-- 3D Doors Stage -->
+          <div class="doors-stage" id="doorsStage">
+            <!-- Door 1 -->
+            <div class="stage-door-item" data-door="0">
+              <div class="door-frame-wrapper">
+                <div class="door-alcove" id="stageAlcove0">
+                  <div class="prize-spotlight">
+                    <span class="prize-emoji">🐐</span>
+                    <span class="prize-name">Goat</span>
+                  </div>
+                </div>
+                <div class="door-leaf" id="stageLeaf0">
+                  <div class="door-leaf-inset">
+                    <span class="door-num-brass">1</span>
+                    <div class="door-brass-knob"></div>
+                  </div>
+                </div>
+              </div>
+              <span class="stage-badge" id="stageBadge0"></span>
+            </div>
+
+            <!-- Door 2 -->
+            <div class="stage-door-item" data-door="1">
+              <div class="door-frame-wrapper">
+                <div class="door-alcove" id="stageAlcove1">
+                  <div class="prize-spotlight">
+                    <span class="prize-emoji">🚗</span>
+                    <span class="prize-name">Car</span>
+                  </div>
+                </div>
+                <div class="door-leaf" id="stageLeaf1">
+                  <div class="door-leaf-inset">
+                    <span class="door-num-brass">2</span>
+                    <div class="door-brass-knob"></div>
+                  </div>
+                </div>
+              </div>
+              <span class="stage-badge" id="stageBadge1"></span>
+            </div>
+
+            <!-- Door 3 -->
+            <div class="stage-door-item" data-door="2">
+              <div class="door-frame-wrapper">
+                <div class="door-alcove" id="stageAlcove2">
+                  <div class="prize-spotlight">
+                    <span class="prize-emoji">🐐</span>
+                    <span class="prize-name">Goat</span>
+                  </div>
+                </div>
+                <div class="door-leaf" id="stageLeaf2">
+                  <div class="door-leaf-inset">
+                    <span class="door-num-brass">3</span>
+                    <div class="door-brass-knob"></div>
+                  </div>
+                </div>
+              </div>
+              <span class="stage-badge" id="stageBadge2"></span>
+            </div>
+          </div>
+
+          <!-- Action Dock -->
+          <div class="stage-dock">
+            <div id="dockChoices" style="display: none; width: 100%; display: flex; gap: 14px;">
+              <button id="btnStayStage" class="btn-squishy btn-squishy-stay" style="flex: 1;">
+                <span>✋ KEEP</span>
+                <small id="stayDoorText">Door 1</small>
+              </button>
+              <button id="btnSwitchStage" class="btn-squishy btn-squishy-switch" style="flex: 1;">
+                <span>🔄 SWITCH</span>
+                <small id="switchDoorText">Door 2</small>
+              </button>
+            </div>
+
+            <div id="dockNext" style="display: none;">
+              <button id="btnNextRoundStage" class="btn-squishy btn-squishy-primary">
+                Play Next Round ➔
+              </button>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PAGE 2: THE LABORATORY (MODULE 2)
+           =================================================================== -->
+      <section id="view-laboratory" class="page-view">
+        <div class="lab-layout">
+          <!-- Control Panel -->
+          <div class="lab-panel">
+            <h3>⚡ Rust Telemetry Engine</h3>
+            <p style="font-size: 0.88rem; color: var(--color-text-secondary);">
+              Run high-throughput Monte Carlo trials using compiled WebAssembly.
+            </p>
+
+            <div class="control-field">
+              <label>Trial Quantity Presets:</label>
+              <div class="gear-presets">
+                <button class="gear-btn" data-trials="100">100</button>
+                <button class="gear-btn active" data-trials="1000">1,000</button>
+                <button class="gear-btn" data-trials="10000">10,000</button>
+                <button class="gear-btn" data-trials="100000">100k</button>
+              </div>
+              <input type="number" id="labCustomTrials" class="styled-input" value="1000" min="10" max="500000" />
+            </div>
+
+            <div class="control-field">
+              <label>Host Behavior Protocol:</label>
+              <select id="labHostMode" class="styled-select">
+                <option value="0">Standard Monty (Always reveals Goat)</option>
+                <option value="1">"Monty Fall" (Uninformed &mdash; Opens randomly)</option>
+              </select>
+              <small style="font-size: 0.76rem; color: var(--color-text-muted);">
+                In "Monty Fall", if Monty slips and reveals the car, the trial is void, dropping the switch rate to 50%.
+              </small>
+            </div>
+
+            <button id="btnLabRun" class="btn-squishy btn-squishy-primary" style="width: 100%;">
+              ▶ Execute Rust Simulation
+            </button>
+          </div>
+
+          <!-- Charts Column -->
+          <div class="lab-charts-column">
+            <!-- Win Rate Bars -->
+            <div class="chart-card-warm">
+              <div class="chart-card-header">
+                <h4>Dual Strategy Win Rates</h4>
+                <span style="font-size: 0.8rem; font-weight: 700; color: var(--color-sage-dark);">Target: Stay 33.3% | Switch 66.7%</span>
+              </div>
+              <canvas id="barCanvas" height="190"></canvas>
+            </div>
+
+            <!-- Convergence Graph -->
+            <div class="chart-card-warm">
+              <div class="chart-card-header">
+                <h4>Convergence Over Trials (Law of Large Numbers)</h4>
+                <div style="display: flex; gap: 14px;">
+                  <span class="legend-pill sage">Switch Strategy</span>
+                  <span class="legend-pill teal">Stay Strategy</span>
+                </div>
+              </div>
+              <canvas id="convCanvas" height="220"></canvas>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PAGE 3: THE INTUITION WORKSHOP (MODULE 3)
+           =================================================================== -->
+      <section id="view-intuition" class="page-view">
+        <div class="intuition-layout">
+          <!-- 100 Doors Scaler Card -->
+          <div class="workshop-card">
+            <h3>🔑 The 100-Doors Intuition Pump</h3>
+            <p style="color: var(--color-text-secondary);">
+              With only 3 doors, intuition tricks us into thinking: <em>"2 doors left = 50/50!"</em> Scale the experiment to 100 doors to make the underlying mathematics intuitive:
+            </p>
+
+            <div class="scaler-box">
+              <div style="display: flex; justify-content: space-between; font-weight: 800;">
+                <span>Scale Total Doors:</span>
+                <span id="scalerDoorsLabel" style="color: var(--color-terracotta);">100 Doors</span>
+              </div>
+              <input type="range" id="scalerRange" class="scaler-slider" min="3" max="100" value="100" step="1" />
+
+              <div class="scaler-grid">
+                <div class="metric-pill">
+                  <span class="m-label">Initial Pick (Stay)</span>
+                  <span class="m-val" style="color: var(--color-teal);" id="scalerStayPct">1 / 100 (1.0%)</span>
+                  <span class="m-note">You almost certainly picked a goat!</span>
+                </div>
+                <div class="metric-pill">
+                  <span class="m-label">Monty Eliminates</span>
+                  <span class="m-val" id="scalerGoatsOut">98 Goats</span>
+                  <span class="m-note">Host intentionally bypasses the car.</span>
+                </div>
+                <div class="metric-pill">
+                  <span class="m-label">Switching Strategy</span>
+                  <span class="m-val" style="color: var(--color-sage-dark);" id="scalerSwitchPct">99 / 100 (99.0%)</span>
+                  <span class="m-note">Virtually guaranteed to win!</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Set Grouping Model -->
+          <div class="workshop-card">
+            <h3>📦 The Set Grouping Model (Probability Condensation)</h3>
+            <p style="color: var(--color-text-secondary);">
+              Instead of individual doors, think of choosing between your <strong>Solo Door</strong> and the <strong>Group of Remaining Doors</strong>:
+            </p>
+
+            <div class="set-grouping-arena">
+              <div class="group-pod">
+                <h4>Your Solo Door</h4>
+                <div class="mini-wood-door">Door 1</div>
+                <strong style="color: var(--color-teal);">Probability: 1/3 (33.3%)</strong>
+              </div>
+
+              <div style="font-size: 1.5rem; font-weight: 900; color: var(--color-text-muted);">VS</div>
+
+              <div class="group-pod">
+                <h4>Unselected Doors Group</h4>
+                <div class="mini-doors-holder">
+                  <div class="mini-wood-door">Door 2</div>
+                  <div class="mini-wood-door eliminated">Door 3 (Goat)</div>
+                </div>
+                <strong style="color: var(--color-sage-dark);">Group Probability: 2/3 (66.7%)</strong>
+                <p style="font-size: 0.8rem; color: var(--color-text-secondary); text-align: center;">
+                  Monty eliminating Door 3 does not erase the group's 66.7% probability mass &mdash; it condenses it entirely into Door 2!
+                </p>
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      <!-- ===================================================================
+           PAGE 4: THE EDUCATOR'S DECK (MODULE 4)
+           =================================================================== -->
+      <section id="view-educator" class="page-view">
+        <div class="educator-layout">
+          <!-- Truth Table -->
+          <div class="educator-card">
+            <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
+              <h3>📋 The 3-Case Permutation Truth Table</h3>
+              <button id="btnExportCSV" class="btn-squishy btn-squishy-secondary" style="font-size: 0.85rem; padding: 8px 16px;">
+                📥 Export Session CSV
+              </button>
+            </div>
+            <p style="color: var(--color-text-secondary);">
+              Assume without loss of generality that the player chooses <strong>Door 1</strong>:
+            </p>
+
+            <div class="table-scroller">
+              <table class="warm-truth-table">
+                <thead>
+                  <tr>
+                    <th>Scenario</th>
+                    <th>Car Behind</th>
+                    <th>Player Pick</th>
+                    <th>Monty Must Open</th>
+                    <th>If You STAY</th>
+                    <th>If You SWITCH</th>
+                  </tr>
+                </thead>
+                <tbody>
+                  <tr>
+                    <td><strong>Case 1</strong> (1/3)</td>
+                    <td>Door 1</td>
+                    <td>Door 1 (Car)</td>
+                    <td>Door 2 or Door 3</td>
+                    <td class="td-win">WIN 🚗</td>
+                    <td class="td-lose">LOSE 🐐</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Case 2</strong> (1/3)</td>
+                    <td>Door 2</td>
+                    <td>Door 1 (Goat)</td>
+                    <td>Door 3 (Goat)</td>
+                    <td class="td-lose">LOSE 🐐</td>
+                    <td class="td-win">WIN 🚗</td>
+                  </tr>
+                  <tr>
+                    <td><strong>Case 3</strong> (1/3)</td>
+                    <td>Door 3</td>
+                    <td>Door 1 (Goat)</td>
+                    <td>Door 2 (Goat)</td>
+                    <td class="td-lose">LOSE 🐐</td>
+                    <td class="td-win">WIN 🚗</td>
+                  </tr>
+                </tbody>
+                <tfoot>
+                  <tr>
+                    <td colspan="4"><strong>Summary Theoretical Odds:</strong></td>
+                    <td style="font-weight: 800; color: var(--color-teal);">1/3 (33.3%)</td>
+                    <td style="font-weight: 800; color: var(--color-sage-dark);">2/3 (66.7%)</td>
+                  </tr>
+                </tfoot>
+              </table>
+            </div>
+          </div>
+
+          <!-- Inquiry Questions from Maths Ideas.pdf -->
+          <div class="educator-card">
+            <h3>🗣️ Guided Teaching Inquiries (From Maths Ideas.pdf)</h3>
+            <p style="color: var(--color-text-secondary);">
+              Use these prompts to lead classroom discussions or guide museum visitors through mathematical inquiry:
+            </p>
+            <div id="inquiryContainer" class="inquiry-deck"></div>
+          </div>
+        </div>
+      </section>
+    </main>
+
+    <!-- Footer -->
+    <footer class="app-footer-warm">
+      <span>The Monty Hall Exhibit &bull; Built with Rust + WebAssembly &bull; Maths Ideas Exhibit 10</span>
+    </footer>
+  </div>
+
+  <script type="module" src="app.js"></script>
+</body>
+</html>

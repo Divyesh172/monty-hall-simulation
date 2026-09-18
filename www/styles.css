@@ -1,0 +1,990 @@
+/* ==========================================================================
+   MONTY HALL EXHIBIT - WARM, CLEAN & DELIGHTFUL UI/UX DESIGN SYSTEM
+   Inspired by Exploratorium, Brilliant.org & NY MoMath
+   ========================================================================== */
+
+:root {
+  /* Warm Canvas & Surfaces */
+  --color-canvas: #FBF8F3;         /* Warm Soft Cream Canvas */
+  --color-surface: #FFFFFF;        /* Crisp Museum Card */
+  --color-surface-warm: #F5EFE6;   /* Secondary warm plinth */
+  --color-surface-hover: #ECE3D4;  /* Hover state */
+  --color-border: #E5DACB;         /* Soft warm card border */
+  --color-border-subtle: #F0E8DC;  /* Subtle dividers */
+
+  /* Midnight Slate Typography */
+  --color-text-primary: #1F2430;   /* High-contrast deep slate */
+  --color-text-secondary: #586071; /* Warm slate body text */
+  --color-text-muted: #8A92A3;     /* Muted labels & captions */
+
+  /* Hero Accent Colors */
+  --color-terracotta: #E2583E;     /* Monty primary accent */
+  --color-terracotta-dark: #B93820;/* 3D button shadow */
+  --color-amber: #F59E0B;          /* Gold prize & ribbons */
+  --color-amber-dark: #C27803;     /* 3D button shadow */
+  --color-amber-light: #FEF3C7;    /* Warm gold badge fill */
+  --color-sage: #10B981;           /* Switch Strategy & Victory */
+  --color-sage-dark: #059669;      /* 3D button shadow */
+  --color-sage-soft: #D1FAE5;      /* Victory callout background */
+  --color-teal: #0284C7;           /* Stay Strategy & Laboratory */
+  --color-teal-dark: #0369A1;      /* 3D button shadow */
+  --color-teal-soft: #E0F2FE;      /* Laboratory badge */
+
+  /* Door Materials */
+  --door-wood: #8A4B29;
+  --door-wood-dark: #5C2E15;
+  --door-knob: #FBBF24;
+
+  /* Elevation Shadows */
+  --shadow-sm: 0 2px 4px rgba(60, 40, 20, 0.05);
+  --shadow-md: 0 6px 16px rgba(60, 40, 20, 0.08);
+  --shadow-lg: 0 14px 32px rgba(60, 40, 20, 0.12);
+  --radius-xl: 20px;
+  --radius-lg: 14px;
+  --radius-md: 10px;
+  --radius-sm: 6px;
+  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+  --font-mono: 'JetBrains Mono', monospace;
+}
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  -webkit-tap-highlight-color: transparent;
+}
+
+body {
+  font-family: var(--font-sans);
+  background-color: var(--color-canvas);
+  color: var(--color-text-primary);
+  min-height: 100vh;
+  line-height: 1.55;
+  display: flex;
+  justify-content: center;
+  background-image: radial-gradient(#E8DEC8 1px, transparent 1px);
+  background-size: 24px 24px;
+}
+
+.app-wrapper {
+  width: 100%;
+  max-width: 1160px;
+  padding: 16px 20px 40px;
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+/* --------------------------------------------------------------------------
+   BREADCRUMB & PERSISTENT HEADER
+   -------------------------------------------------------------------------- */
+.top-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 12px;
+  background: var(--color-surface);
+  padding: 12px 20px;
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+}
+
+.breadcrumb-area {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  font-size: 0.95rem;
+  font-weight: 700;
+}
+
+.nav-home-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: var(--color-surface-warm);
+  color: var(--color-text-primary);
+  padding: 6px 12px;
+  border-radius: var(--radius-sm);
+  text-decoration: none;
+  font-size: 0.85rem;
+  font-weight: 700;
+  border: 1px solid var(--color-border);
+  transition: all 0.15s ease;
+}
+
+.nav-home-btn:hover {
+  background: var(--color-surface-hover);
+  transform: translateY(-1px);
+}
+
+.breadcrumb-separator {
+  color: var(--color-text-muted);
+}
+
+.current-page-label {
+  color: var(--color-terracotta);
+}
+
+.nav-telemetry {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.session-badge-pill {
+  background: var(--color-surface-warm);
+  padding: 6px 12px;
+  border-radius: 20px;
+  font-size: 0.82rem;
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  display: flex;
+  gap: 8px;
+}
+
+.session-badge-pill strong {
+  color: var(--color-text-primary);
+}
+
+.icon-circle-btn {
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  transition: all 0.15s ease;
+}
+
+.icon-circle-btn:hover {
+  background: var(--color-surface-hover);
+  transform: scale(1.05);
+}
+
+/* --------------------------------------------------------------------------
+   TACTILE SQUISHY 3D BUTTONS
+   -------------------------------------------------------------------------- */
+.btn-squishy {
+  font-family: var(--font-sans);
+  font-weight: 700;
+  font-size: 1rem;
+  padding: 12px 24px;
+  border-radius: var(--radius-md);
+  cursor: pointer;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+  border: none;
+  position: relative;
+  user-select: none;
+  text-decoration: none;
+  transition: transform 0.1s ease, box-shadow 0.1s ease;
+}
+
+.btn-squishy-primary {
+  background: var(--color-terracotta);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--color-terracotta-dark), 0 8px 16px rgba(226, 88, 62, 0.25);
+}
+.btn-squishy-primary:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-terracotta-dark), 0 12px 20px rgba(226, 88, 62, 0.3);
+}
+.btn-squishy-primary:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-terracotta-dark), 0 3px 6px rgba(226, 88, 62, 0.2);
+}
+
+.btn-squishy-switch {
+  background: var(--color-sage);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--color-sage-dark), 0 8px 16px rgba(16, 185, 129, 0.25);
+}
+.btn-squishy-switch:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-sage-dark), 0 12px 20px rgba(16, 185, 129, 0.3);
+}
+.btn-squishy-switch:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-sage-dark), 0 3px 6px rgba(16, 185, 129, 0.2);
+}
+
+.btn-squishy-stay {
+  background: var(--color-teal);
+  color: #fff;
+  box-shadow: 0 4px 0 var(--color-teal-dark), 0 8px 16px rgba(2, 132, 199, 0.25);
+}
+.btn-squishy-stay:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 0 var(--color-teal-dark), 0 12px 20px rgba(2, 132, 199, 0.3);
+}
+.btn-squishy-stay:active {
+  transform: translateY(3px);
+  box-shadow: 0 1px 0 var(--color-teal-dark), 0 3px 6px rgba(2, 132, 199, 0.2);
+}
+
+.btn-squishy-secondary {
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
+  box-shadow: 0 3px 0 var(--color-border), 0 6px 12px rgba(60, 40, 20, 0.05);
+}
+.btn-squishy-secondary:hover {
+  transform: translateY(-1px);
+  background: var(--color-surface-warm);
+}
+.btn-squishy-secondary:active {
+  transform: translateY(2px);
+  box-shadow: 0 1px 0 var(--color-border);
+}
+
+/* --------------------------------------------------------------------------
+   PAGE ROUTING CONTAINERS
+   -------------------------------------------------------------------------- */
+.page-view {
+  display: none;
+  animation: fadeInView 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+}
+.page-view.active {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+@keyframes fadeInView {
+  from { opacity: 0; transform: translateY(6px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+/* --------------------------------------------------------------------------
+   MODULE 0: THE EXHIBIT ROTUNDA (HUB)
+   -------------------------------------------------------------------------- */
+.rotunda-hero {
+  background: linear-gradient(135deg, #FFFDF9, #F7F1E6);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 36px 32px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  box-shadow: var(--shadow-md);
+  position: relative;
+  overflow: hidden;
+}
+
+.rotunda-hero-text {
+  max-width: 620px;
+  z-index: 2;
+}
+
+.hero-tag {
+  display: inline-block;
+  background: var(--color-amber-light);
+  color: var(--color-amber-dark);
+  border: 1px solid var(--color-amber);
+  font-size: 0.8rem;
+  font-weight: 800;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+  padding: 4px 10px;
+  border-radius: 20px;
+  margin-bottom: 12px;
+}
+
+.rotunda-hero h2 {
+  font-size: 2.2rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  margin-bottom: 10px;
+}
+
+.rotunda-hero p {
+  font-size: 1.05rem;
+  color: var(--color-text-secondary);
+}
+
+.rotunda-illustration {
+  font-size: 5rem;
+  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
+}
+
+/* 4 Pavilions Grid */
+.pavilions-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 20px;
+}
+
+@media (max-width: 768px) {
+  .pavilions-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.pavilion-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: 16px;
+  text-decoration: none;
+  color: inherit;
+  box-shadow: var(--shadow-sm);
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
+  position: relative;
+  overflow: hidden;
+}
+
+.pavilion-card:hover {
+  transform: translateY(-4px);
+  box-shadow: var(--shadow-md);
+  border-color: var(--color-terracotta);
+}
+
+.pavilion-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+}
+
+.pavilion-badge {
+  font-size: 0.75rem;
+  font-weight: 800;
+  letter-spacing: 0.03em;
+  padding: 4px 8px;
+  border-radius: 6px;
+}
+.badge-orange { background: #FFEDD5; color: #C2410C; }
+.badge-teal { background: var(--color-teal-soft); color: var(--color-teal-dark); }
+.badge-amber { background: var(--color-amber-light); color: var(--color-amber-dark); }
+.badge-purple { background: #F3E8FF; color: #7E22CE; }
+
+.pavilion-icon {
+  font-size: 2.2rem;
+}
+
+.pavilion-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  margin-bottom: 6px;
+}
+
+.pavilion-card p {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+.pavilion-footer {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-top: 1px solid var(--color-border-subtle);
+  padding-top: 14px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--color-terracotta);
+}
+
+/* --------------------------------------------------------------------------
+   MODULE 1: THE GAME SHOW
+   -------------------------------------------------------------------------- */
+.stage-container {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-xl);
+  padding: 28px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 24px;
+  box-shadow: var(--shadow-md);
+  position: relative;
+}
+
+.monty-dialogue-card {
+  width: 100%;
+  max-width: 680px;
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 16px 20px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+
+.monty-avatar {
+  font-size: 2.6rem;
+  background: #fff;
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 2px solid var(--color-border);
+  box-shadow: var(--shadow-sm);
+  flex-shrink: 0;
+}
+
+.monty-speech p {
+  font-size: 1.05rem;
+  color: var(--color-text-primary);
+  font-weight: 600;
+}
+
+/* 3D Doors Stage with Damped Spring Physics */
+.doors-stage {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  width: 100%;
+  max-width: 720px;
+  perspective: 1200px;
+  padding: 10px 0;
+}
+
+.stage-door-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  cursor: pointer;
+}
+
+.door-frame-wrapper {
+  width: 100%;
+  aspect-ratio: 3 / 5;
+  max-width: 210px;
+  position: relative;
+  perspective: 1200px;
+  background: #E8DEC8;
+  border: 5px solid #5C2E15;
+  border-radius: var(--radius-md);
+  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.25), var(--shadow-md);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  overflow: visible;
+}
+
+.stage-door-item.selected .door-frame-wrapper {
+  box-shadow: 0 0 0 4px var(--color-amber), 0 12px 24px rgba(245, 158, 11, 0.35);
+  transform: translateY(-4px);
+}
+
+.stage-door-item.alternate .door-frame-wrapper {
+  box-shadow: 0 0 0 3px var(--color-sage), 0 8px 20px rgba(16, 185, 129, 0.35);
+  animation: pulseGreen 1.6s infinite alternate;
+}
+
+@keyframes pulseGreen {
+  0% { box-shadow: 0 0 0 2px var(--color-sage); }
+  100% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.6); }
+}
+
+/* Interior Alcove (Prize is always flat, centered, and full width) */
+.door-alcove {
+  position: absolute;
+  inset: 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  background: radial-gradient(circle at center, #FFFDF8 0%, #EDE5D5 100%);
+  border-radius: 4px;
+  z-index: 1;
+  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.1);
+}
+
+.door-alcove.win {
+  background: radial-gradient(circle at center, #FEF3C7 0%, #FDE68A 100%);
+  border: 2px solid var(--color-amber);
+}
+
+.prize-spotlight {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+}
+
+.prize-emoji {
+  font-size: 3.6rem;
+  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  line-height: 1;
+}
+
+.prize-name {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+/* Wooden Door Leaf (Hinged on the left side) */
+.door-leaf {
+  position: absolute;
+  inset: 0;
+  z-index: 2;
+  background: linear-gradient(135deg, var(--door-wood), var(--door-wood-dark));
+  border: 3px solid #451A03;
+  border-radius: 4px;
+  transform-origin: left center;
+  transform-style: preserve-3d;
+  transition: transform 0.75s cubic-bezier(0.34, 1.35, 0.64, 1), box-shadow 0.3s ease;
+  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Open state: Swings outward on left hinge */
+.door-leaf.open {
+  transform: rotateY(-114deg);
+  box-shadow: 14px 0 24px rgba(0, 0, 0, 0.35);
+}
+
+.door-leaf-inset {
+  width: 80%;
+  height: 86%;
+  border: 2px dashed rgba(251, 191, 36, 0.35);
+  border-radius: var(--radius-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+}
+
+.door-num-brass {
+  font-size: 3rem;
+  font-weight: 900;
+  color: #FEF3C7;
+  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
+}
+
+.door-brass-knob {
+  position: absolute;
+  right: 8px;
+  width: 14px;
+  height: 14px;
+  background: radial-gradient(circle, #FEF08A, var(--door-knob));
+  border-radius: 50%;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+}
+
+.stage-badge {
+  margin-top: 10px;
+  min-height: 24px;
+  font-size: 0.78rem;
+  font-weight: 800;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-align: center;
+}
+
+.stage-dock {
+  display: flex;
+  justify-content: center;
+  width: 100%;
+  max-width: 500px;
+  min-height: 60px;
+}
+
+/* --------------------------------------------------------------------------
+   MODULE 2: THE LABORATORY (MONTE CARLO)
+   -------------------------------------------------------------------------- */
+.lab-layout {
+  display: grid;
+  grid-template-columns: 340px 1fr;
+  gap: 20px;
+}
+
+@media (max-width: 900px) {
+  .lab-layout {
+    grid-template-columns: 1fr;
+  }
+}
+
+.lab-panel {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.lab-panel h3 {
+  font-size: 1.25rem;
+  font-weight: 800;
+}
+
+.control-field {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.control-field label {
+  font-size: 0.88rem;
+  font-weight: 700;
+  color: var(--color-text-secondary);
+}
+
+.gear-presets {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 6px;
+}
+
+.gear-btn {
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  border-radius: var(--radius-sm);
+  padding: 8px 4px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  cursor: pointer;
+  transition: all 0.15s ease;
+}
+
+.gear-btn.active, .gear-btn:hover {
+  background: var(--color-terracotta);
+  color: white;
+  border-color: var(--color-terracotta-dark);
+}
+
+.styled-select, .styled-input {
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-primary);
+  padding: 10px 12px;
+  border-radius: var(--radius-sm);
+  font-size: 0.95rem;
+  font-family: inherit;
+  font-weight: 600;
+}
+
+.lab-charts-column {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.chart-card-warm {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+  box-shadow: var(--shadow-sm);
+}
+
+.chart-card-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 8px;
+}
+
+.chart-card-header h4 {
+  font-size: 1.1rem;
+  font-weight: 800;
+}
+
+.legend-pill {
+  font-size: 0.8rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.legend-pill.sage::before {
+  content: '';
+  width: 12px;
+  height: 4px;
+  background: var(--color-sage);
+  border-radius: 2px;
+}
+
+.legend-pill.teal::before {
+  content: '';
+  width: 12px;
+  height: 4px;
+  background: var(--color-teal);
+  border-radius: 2px;
+}
+
+canvas {
+  width: 100%;
+  border-radius: var(--radius-sm);
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border-subtle);
+}
+
+/* --------------------------------------------------------------------------
+   MODULE 3: THE INTUITION WORKSHOP
+   -------------------------------------------------------------------------- */
+.intuition-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.workshop-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 18px;
+  box-shadow: var(--shadow-sm);
+}
+
+.workshop-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.scaler-box {
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.scaler-slider {
+  width: 100%;
+  accent-color: var(--color-terracotta);
+  height: 8px;
+  cursor: pointer;
+}
+
+.scaler-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 14px;
+}
+
+@media (max-width: 680px) {
+  .scaler-grid {
+    grid-template-columns: 1fr;
+  }
+}
+
+.metric-pill {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-sm);
+  padding: 14px;
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.metric-pill .m-label {
+  font-size: 0.8rem;
+  color: var(--color-text-muted);
+  font-weight: 700;
+}
+.metric-pill .m-val {
+  font-size: 1.35rem;
+  font-weight: 900;
+}
+.metric-pill .m-note {
+  font-size: 0.78rem;
+  color: var(--color-text-secondary);
+}
+
+/* Set Grouping Visual */
+.set-grouping-arena {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 20px;
+  padding: 20px;
+  background: var(--color-surface-warm);
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
+  flex-wrap: wrap;
+}
+
+.group-pod {
+  background: var(--color-surface);
+  border: 2px dashed var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 12px;
+  flex: 1;
+  min-width: 220px;
+}
+
+.group-pod h4 {
+  font-size: 0.95rem;
+  color: var(--color-text-secondary);
+}
+
+.mini-wood-door {
+  background: var(--door-wood);
+  color: #fff;
+  padding: 10px 20px;
+  border-radius: 6px;
+  font-weight: 800;
+  font-size: 0.95rem;
+}
+
+.mini-doors-holder {
+  display: flex;
+  gap: 10px;
+}
+
+.mini-wood-door.eliminated {
+  background: #F87171;
+  text-decoration: line-through;
+  opacity: 0.7;
+}
+
+/* --------------------------------------------------------------------------
+   MODULE 4: THE EDUCATOR'S DECK
+   -------------------------------------------------------------------------- */
+.educator-layout {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.educator-card {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-lg);
+  padding: 28px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  box-shadow: var(--shadow-sm);
+}
+
+.educator-card h3 {
+  font-size: 1.35rem;
+  font-weight: 800;
+}
+
+.educator-actions-bar {
+  display: flex;
+  gap: 12px;
+  flex-wrap: wrap;
+  align-items: center;
+}
+
+.table-scroller {
+  overflow-x: auto;
+}
+
+.warm-truth-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: left;
+  font-size: 0.92rem;
+}
+
+.warm-truth-table th, .warm-truth-table td {
+  padding: 14px 16px;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.warm-truth-table th {
+  background: var(--color-surface-warm);
+  font-weight: 800;
+  color: var(--color-text-secondary);
+}
+
+.td-win {
+  color: var(--color-sage-dark);
+  font-weight: 800;
+}
+
+.td-lose {
+  color: #DC2626;
+  font-weight: 600;
+}
+
+.inquiry-deck {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.inquiry-item {
+  background: var(--color-surface-warm);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  padding: 16px 20px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+}
+
+.inquiry-tag {
+  background: var(--color-teal);
+  color: #fff;
+  font-size: 0.75rem;
+  font-weight: 800;
+  padding: 2px 8px;
+  border-radius: 4px;
+  width: fit-content;
+}
+
+.inquiry-title {
+  font-size: 1.05rem;
+  font-weight: 800;
+  color: var(--color-text-primary);
+}
+
+.inquiry-context {
+  font-size: 0.88rem;
+  color: var(--color-text-secondary);
+}
+
+.inquiry-solution {
+  background: #fff;
+  border-left: 3px solid var(--color-sage);
+  padding: 10px 14px;
+  border-radius: 4px;
+  font-size: 0.88rem;
+  color: var(--color-text-primary);
+}
+
+/* Footer */
+.app-footer-warm {
+  text-align: center;
+  font-size: 0.85rem;
+  color: var(--color-text-muted);
+  padding: 20px 0;
+}

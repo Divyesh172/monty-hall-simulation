@@ -1,0 +1,15 @@
+{
+  "name": "monty_hall_simulation",
+  "type": "module",
+  "version": "0.1.0",
+  "files": [
+    "monty_hall_simulation_bg.wasm",
+    "monty_hall_simulation.js",
+    "monty_hall_simulation.d.ts"
+  ],
+  "main": "monty_hall_simulation.js",
+  "types": "monty_hall_simulation.d.ts",
+  "sideEffects": [
+    "./snippets/*"
+  ]
+}
