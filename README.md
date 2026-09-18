@@ -1,5 +1,9 @@
 # Monty Hall Problem &mdash; Interactive Rust + WebAssembly Simulation
 
+[![GitHub Pages](https://img.shields.io/badge/Live%20Demo-GitHub%20Pages-success?style=for-the-badge&logo=github)](https://divyesh172.github.io/monty-hall-simulation/)
+
+**🌐 Live Interactive Exhibit:** [https://divyesh172.github.io/monty-hall-simulation/](https://divyesh172.github.io/monty-hall-simulation/)
+
 An interactive, high-performance mathematical simulation of the **Monty Hall Paradox**, powered by **Rust** and **WebAssembly**, designed for math museums, classroom whiteboards, and all mobile/desktop devices.
 
 Based on **Exhibit 10 (Monty Hall Problem)** from `Maths Ideas.pdf` and research from Kalid Azad's *BetterExplained* conditional probability model.
