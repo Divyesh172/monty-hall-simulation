@@ -740,6 +740,15 @@ canvas {
   border-radius: var(--radius-sm);
   background: var(--color-surface-warm);
   border: 1px solid var(--color-border-subtle);
+  display: block;
+}
+
+#barCanvas {
+  height: 190px;
+}
+
+#convCanvas {
+  height: 230px;
 }
 
 /* --------------------------------------------------------------------------
