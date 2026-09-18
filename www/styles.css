@@ -318,14 +318,14 @@ body {
   filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
 }
 
-/* 4 Pavilions Grid */
+/* Pavilions Grid */
 .pavilions-grid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 20px;
 }
 
-@media (max-width: 768px) {
+@media (max-width: 900px) {
   .pavilions-grid {
     grid-template-columns: 1fr;
   }
