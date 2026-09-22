@@ -1,49 +1,69 @@
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Sora:wght@400;600;700;800&display=swap');
+
 /* ==========================================================================
    MONTY HALL EXHIBIT - WARM, CLEAN & DELIGHTFUL UI/UX DESIGN SYSTEM
    Inspired by Exploratorium, Brilliant.org & NY MoMath
    ========================================================================== */
 
 :root {
-  /* Warm Canvas & Surfaces */
-  --color-canvas: #FBF8F3;         /* Warm Soft Cream Canvas */
-  --color-surface: #FFFFFF;        /* Crisp Museum Card */
-  --color-surface-warm: #F5EFE6;   /* Secondary warm plinth */
-  --color-surface-hover: #ECE3D4;  /* Hover state */
-  --color-border: #E5DACB;         /* Soft warm card border */
-  --color-border-subtle: #F0E8DC;  /* Subtle dividers */
+  /* Mind Reader Surface & Canvas Tokens */
+  --color-canvas: #F1EFE8;            /* Warm Sand Oyster canvas */
+  --color-surface: #FBFAF6;           /* Crisp Warm Cream Paper surface */
+  --color-surface-warm: #EFECE3;      /* Secondary warm plinth */
+  --color-surface-hover: #E8E3D5;     /* Hover state */
+  --color-border: #DBD5C6;            /* Hairline Architectural border */
+  --color-border-subtle: #E7E2D5;     /* Soft Inset divider */
 
-  /* Midnight Slate Typography */
-  --color-text-primary: #1F2430;   /* High-contrast deep slate */
-  --color-text-secondary: #586071; /* Warm slate body text */
-  --color-text-muted: #8A92A3;     /* Muted labels & captions */
+  /* Mind Reader Typography (Ink & Muted) */
+  --color-text-primary: #262420;      /* Deep Espresso Ink text */
+  --color-text-secondary: #57534A;    /* Refined neutral body text */
+  --color-text-muted: #A39C8D;        /* Warm Sand Muted text */
 
-  /* Hero Accent Colors */
-  --color-terracotta: #E2583E;     /* Monty primary accent */
-  --color-terracotta-dark: #B93820;/* 3D button shadow */
-  --color-amber: #F59E0B;          /* Gold prize & ribbons */
-  --color-amber-dark: #C27803;     /* 3D button shadow */
-  --color-amber-light: #FEF3C7;    /* Warm gold badge fill */
-  --color-sage: #10B981;           /* Switch Strategy & Victory */
-  --color-sage-dark: #059669;      /* 3D button shadow */
-  --color-sage-soft: #D1FAE5;      /* Victory callout background */
-  --color-teal: #0284C7;           /* Stay Strategy & Laboratory */
-  --color-teal-dark: #0369A1;      /* 3D button shadow */
-  --color-teal-soft: #E0F2FE;      /* Laboratory badge */
+  /* Mind Reader Card Duotone Accents */
+  --color-ochre: #F5C842;             /* Mind Reader Warm Gold / Ochre */
+  --color-ochre-border: #DDAE27;
+  --color-ochre-ink: #262420;
+
+  --color-petrol: #28536B;            /* Mind Reader Petrol Slate */
+  --color-petrol-border: #1F4256;
+  --color-petrol-ink: #B4CCCF;
+
+  --color-sage: #8FB78F;              /* Mind Reader Sage Olive */
+  --color-sage-border: #7AA27A;
+  --color-sage-ink: #2F4A34;
+  --color-sage-soft: rgba(143, 183, 143, 0.15);
+
+  --color-terracotta: #E05A47;        /* Terracotta accent */
+  --color-terracotta-dark: #C94A38;
+  --color-amber: #F5C842;
+  --color-amber-dark: #DDAE27;
+  --color-amber-light: rgba(245, 200, 66, 0.2);
+
+  --color-teal: #28536B;
+  --color-teal-dark: #1F4256;
+  --color-teal-soft: rgba(40, 83, 107, 0.12);
+
+  --color-yellow: #F5C842;            /* Mind Reader Yellow/Ochre */
+  --color-yellow-dark: #DDAE27;
 
   /* Door Materials */
-  --door-wood: #8A4B29;
-  --door-wood-dark: #5C2E15;
-  --door-knob: #FBBF24;
+  --door-wood: #E7E0D0;
+  --door-wood-dark: #D8D0BE;
+  --door-knob: #262420;
 
   /* Elevation Shadows */
-  --shadow-sm: 0 2px 4px rgba(60, 40, 20, 0.05);
-  --shadow-md: 0 6px 16px rgba(60, 40, 20, 0.08);
-  --shadow-lg: 0 14px 32px rgba(60, 40, 20, 0.12);
+  --shadow-sm: 0 1px 3px rgba(38, 36, 32, 0.05);
+  --shadow-md: 0 4px 14px rgba(38, 36, 32, 0.07);
+  --shadow-lg: 0 12px 30px rgba(38, 36, 32, 0.10);
   --radius-xl: 20px;
   --radius-lg: 14px;
   --radius-md: 10px;
   --radius-sm: 6px;
-  --font-sans: 'Plus Jakarta Sans', system-ui, -apple-system, sans-serif;
+
+  /* Typography Variables */
+  --font-display: 'Sora', system-ui, -apple-system, sans-serif;
+  --font-body: 'Inter', system-ui, -apple-system, sans-serif;
+  --font-sans: var(--font-body);
   --font-mono: 'JetBrains Mono', monospace;
 }
 
@@ -55,15 +75,44 @@
 }
 
 body {
-  font-family: var(--font-sans);
+  font-family: var(--font-body);
   background-color: var(--color-canvas);
   color: var(--color-text-primary);
   min-height: 100vh;
+  min-height: 100dvh;
   line-height: 1.55;
   display: flex;
   justify-content: center;
-  background-image: radial-gradient(#E8DEC8 1px, transparent 1px);
+  background-image: radial-gradient(rgba(38, 36, 32, 0.06) 1px, transparent 1px);
   background-size: 24px 24px;
+}
+
+body:has(#view-game-show.active),
+body:has(#view-laboratory.active),
+body.view-game-active,
+body.view-lab-active {
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+}
+
+body:has(#view-game-show.active) .app-wrapper,
+body:has(#view-laboratory.active) .app-wrapper,
+body.view-game-active .app-wrapper,
+body.view-lab-active .app-wrapper {
+  height: 100%;
+  max-height: 100vh;
+  max-height: 100dvh;
+  padding: clamp(10px, 1.8vh, 18px) 24px clamp(12px, 2vh, 20px);
+  gap: clamp(10px, 1.6vh, 16px);
+  overflow: hidden;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-display);
+  color: var(--color-text-primary);
+  line-height: 1.25;
+  letter-spacing: -0.02em;
 }
 
 .app-wrapper {
@@ -170,81 +219,82 @@ body {
 }
 
 /* --------------------------------------------------------------------------
-   TACTILE SQUISHY 3D BUTTONS
+   SLEEK FLAT TACTILE PILL BUTTONS
    -------------------------------------------------------------------------- */
 .btn-squishy {
-  font-family: var(--font-sans);
-  font-weight: 700;
+  font-family: var(--font-display);
+  font-weight: 600;
   font-size: 1rem;
-  padding: 12px 24px;
+  padding: 14px 28px;
   border-radius: var(--radius-md);
   cursor: pointer;
   display: inline-flex;
   align-items: center;
   justify-content: center;
   gap: 8px;
-  border: none;
+  border: 1px solid transparent;
   position: relative;
   user-select: none;
   text-decoration: none;
-  transition: transform 0.1s ease, box-shadow 0.1s ease;
+  box-shadow: none;
+  transition: all 0.15s ease;
+}
+
+.btn-squishy:hover {
+  transform: translateY(-2px);
+  filter: brightness(1.08);
+}
+
+.btn-squishy:active {
+  transform: translateY(0);
+  filter: brightness(0.95);
+}
+
+.btn-squishy small {
+  display: block;
+  font-size: 0.8rem;
+  font-weight: 500;
+  opacity: 0.88;
 }
 
 .btn-squishy-primary {
-  background: var(--color-terracotta);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--color-terracotta-dark), 0 8px 16px rgba(226, 88, 62, 0.25);
+  background: var(--color-text-primary);
+  color: var(--color-canvas);
+  border: 1px solid var(--color-text-primary);
 }
 .btn-squishy-primary:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 var(--color-terracotta-dark), 0 12px 20px rgba(226, 88, 62, 0.3);
-}
-.btn-squishy-primary:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--color-terracotta-dark), 0 3px 6px rgba(226, 88, 62, 0.2);
+  background: #3D3A34;
+  color: #FFFFFF;
 }
 
 .btn-squishy-switch {
-  background: var(--color-sage);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--color-sage-dark), 0 8px 16px rgba(16, 185, 129, 0.25);
+  background: var(--color-text-primary);
+  color: var(--color-canvas);
+  border: 1px solid var(--color-text-primary);
 }
 .btn-squishy-switch:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 var(--color-sage-dark), 0 12px 20px rgba(16, 185, 129, 0.3);
-}
-.btn-squishy-switch:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--color-sage-dark), 0 3px 6px rgba(16, 185, 129, 0.2);
+  background: #3D3A34;
+  color: #FFFFFF;
 }
 
 .btn-squishy-stay {
-  background: var(--color-teal);
-  color: #fff;
-  box-shadow: 0 4px 0 var(--color-teal-dark), 0 8px 16px rgba(2, 132, 199, 0.25);
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  border: 1px solid var(--color-border);
 }
 .btn-squishy-stay:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 6px 0 var(--color-teal-dark), 0 12px 20px rgba(2, 132, 199, 0.3);
-}
-.btn-squishy-stay:active {
-  transform: translateY(3px);
-  box-shadow: 0 1px 0 var(--color-teal-dark), 0 3px 6px rgba(2, 132, 199, 0.2);
+  background: var(--color-surface-hover);
+  border-color: var(--color-text-muted);
 }
 
 .btn-squishy-secondary {
   background: var(--color-surface);
   color: var(--color-text-primary);
   border: 1px solid var(--color-border);
-  box-shadow: 0 3px 0 var(--color-border), 0 6px 12px rgba(60, 40, 20, 0.05);
 }
 .btn-squishy-secondary:hover {
-  transform: translateY(-1px);
-  background: var(--color-surface-warm);
-}
-.btn-squishy-secondary:active {
-  transform: translateY(2px);
-  box-shadow: 0 1px 0 var(--color-border);
+  background: var(--color-surface-hover);
+  border-color: var(--color-text-muted);
 }
 
 /* --------------------------------------------------------------------------
@@ -260,6 +310,16 @@ body {
   gap: 20px;
 }
 
+#view-game-show.active,
+#view-laboratory.active {
+  flex: 1;
+  min-height: 0;
+  display: flex;
+  flex-direction: column;
+  overflow: hidden;
+  gap: 0;
+}
+
 @keyframes fadeInView {
   from { opacity: 0; transform: translateY(6px); }
   to { opacity: 1; transform: translateY(0); }
@@ -269,14 +329,14 @@ body {
    MODULE 0: THE EXHIBIT ROTUNDA (HUB)
    -------------------------------------------------------------------------- */
 .rotunda-hero {
-  background: linear-gradient(135deg, #FFFDF9, #F7F1E6);
+  background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
   padding: 36px 32px;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  box-shadow: var(--shadow-md);
+  box-shadow: var(--shadow-sm);
   position: relative;
   overflow: hidden;
 }
@@ -288,12 +348,12 @@ body {
 
 .hero-tag {
   display: inline-block;
-  background: var(--color-amber-light);
-  color: var(--color-amber-dark);
-  border: 1px solid var(--color-amber);
-  font-size: 0.8rem;
-  font-weight: 800;
-  letter-spacing: 0.04em;
+  background: var(--color-surface-warm);
+  color: var(--color-text-secondary);
+  border: 1px solid var(--color-border);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
   text-transform: uppercase;
   padding: 4px 10px;
   border-radius: 20px;
@@ -314,8 +374,8 @@ body {
 }
 
 .rotunda-illustration {
-  font-size: 5rem;
-  filter: drop-shadow(0 6px 12px rgba(0, 0, 0, 0.1));
+  font-size: 4rem;
+  opacity: 0.85;
 }
 
 /* Pavilions Grid */
@@ -335,7 +395,7 @@ body {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: 28px;
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -354,6 +414,207 @@ body {
   border-color: var(--color-terracotta);
 }
 
+/* Mind Reader 3-Tier Card Model */
+.card-top {
+  display: flex;
+  justify-content: space-between;
+  align-items: baseline;
+  margin-bottom: 20px;
+}
+
+.card-num {
+  font-family: var(--font-display);
+  font-size: 2.2rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+
+.card-arrow {
+  font-size: 1.2rem;
+  transition: transform 0.2s ease;
+}
+
+.pavilion-card:hover .card-arrow {
+  transform: translateX(4px);
+}
+
+.card-body h3 {
+  font-family: var(--font-display);
+  font-size: 1.35rem;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+.card-body p {
+  font-size: 0.92rem;
+  line-height: 1.5;
+}
+
+.card-meta {
+  margin-top: 18px;
+  font-size: 0.78rem;
+  font-weight: 600;
+  letter-spacing: 0.04em;
+  text-transform: uppercase;
+}
+
+/* Card 1: Mind Reader Warm Ochre / Solid Yellow */
+.pavilion-card.card-yellow {
+  background: var(--color-yellow);
+  border-color: var(--color-yellow-dark);
+  color: #262420;
+}
+
+.pavilion-card.card-yellow .card-num {
+  color: #4A3B10;
+}
+
+.pavilion-card.card-yellow .card-arrow {
+  color: #4A3B10;
+}
+
+.pavilion-card.card-yellow h3 {
+  color: #262420;
+}
+
+.pavilion-card.card-yellow p {
+  color: #4A3B10;
+}
+
+.pavilion-card.card-yellow .card-meta {
+  color: #4A3B10;
+}
+
+.pavilion-card.card-yellow:hover {
+  border-color: #C69A1C;
+  box-shadow: 0 8px 24px rgba(245, 200, 66, 0.35);
+}
+
+.pavilion-card.card-yellow .pavilion-footer {
+  border-top-color: rgba(38, 36, 32, 0.15);
+  color: #4A3B10;
+}
+
+.pavilion-card.card-yellow .pavilion-badge {
+  background: rgba(38, 36, 32, 0.88);
+  color: #F5C842;
+  border: none;
+}
+
+/* Card 2: Mind Reader Petrol Slate */
+.pavilion-card.card-cyan,
+.pavilion-card.card-blue {
+  background: var(--color-petrol);
+  border-color: var(--color-petrol-border);
+  color: var(--color-petrol-ink);
+}
+
+.pavilion-card.card-cyan .card-num,
+.pavilion-card.card-blue .card-num {
+  color: var(--color-petrol-ink);
+}
+
+.pavilion-card.card-cyan .card-arrow,
+.pavilion-card.card-blue .card-arrow {
+  color: var(--color-petrol-ink);
+}
+
+.pavilion-card.card-cyan h3,
+.pavilion-card.card-blue h3 {
+  color: #FFFFFF;
+}
+
+.pavilion-card.card-cyan p,
+.pavilion-card.card-blue p {
+  color: var(--color-petrol-ink);
+}
+
+.pavilion-card.card-cyan .card-meta,
+.pavilion-card.card-blue .card-meta {
+  color: var(--color-petrol-ink);
+}
+
+.pavilion-card.card-cyan:hover,
+.pavilion-card.card-blue:hover {
+  border-color: #387091;
+  box-shadow: 0 8px 24px rgba(40, 83, 107, 0.35);
+}
+
+.pavilion-card.card-cyan .pavilion-footer,
+.pavilion-card.card-blue .pavilion-footer {
+  border-top-color: rgba(255, 255, 255, 0.2);
+  color: #B4CCCF;
+}
+
+.pavilion-card.card-cyan .pavilion-badge,
+.pavilion-card.card-blue .pavilion-badge {
+  background: rgba(0, 0, 0, 0.3);
+  color: #B4CCCF;
+  border: none;
+}
+
+/* Card 3: Mind Reader Sage Olive */
+.pavilion-card.card-violet,
+.pavilion-card.card-coral {
+  background: var(--color-sage);
+  border-color: var(--color-sage-border);
+  color: var(--color-sage-ink);
+}
+
+.pavilion-card.card-violet .card-num,
+.pavilion-card.card-coral .card-num {
+  color: var(--color-sage-ink);
+}
+
+.pavilion-card.card-violet .card-arrow,
+.pavilion-card.card-coral .card-arrow {
+  color: var(--color-sage-ink);
+}
+
+.pavilion-card.card-violet h3,
+.pavilion-card.card-coral h3 {
+  color: #1B2E20;
+}
+
+.pavilion-card.card-violet p,
+.pavilion-card.card-coral p {
+  color: var(--color-sage-ink);
+}
+
+.pavilion-card.card-violet .card-meta,
+.pavilion-card.card-coral .card-meta {
+  color: var(--color-sage-ink);
+}
+
+.pavilion-card.card-violet:hover,
+.pavilion-card.card-coral:hover {
+  border-color: #6A966A;
+  box-shadow: 0 8px 24px rgba(143, 183, 143, 0.35);
+}
+
+.pavilion-card.card-violet .pavilion-footer,
+.pavilion-card.card-coral .pavilion-footer {
+  border-top-color: rgba(47, 74, 52, 0.2);
+  color: #2F4A34;
+}
+
+.pavilion-card.card-violet .pavilion-badge,
+.pavilion-card.card-coral .pavilion-badge {
+  background: rgba(47, 74, 52, 0.2);
+  color: #2F4A34;
+  border: none;
+}
+  color: #DDD6FE;
+}
+
+.pavilion-card.card-violet .pavilion-badge,
+.pavilion-card.card-coral .pavilion-badge {
+  background: rgba(0, 0, 0, 0.35);
+  color: #DDD6FE;
+  border: none;
+}
+
 .pavilion-header {
   display: flex;
   justify-content: space-between;
@@ -367,24 +628,26 @@ body {
   padding: 4px 8px;
   border-radius: 6px;
 }
-.badge-orange { background: #FFEDD5; color: #C2410C; }
-.badge-teal { background: var(--color-teal-soft); color: var(--color-teal-dark); }
-.badge-amber { background: var(--color-amber-light); color: var(--color-amber-dark); }
-.badge-purple { background: #F3E8FF; color: #7E22CE; }
+.badge-orange { background: rgba(249, 115, 22, 0.2); color: #FB923C; border: 1px solid rgba(249, 115, 22, 0.35); }
+.badge-teal { background: rgba(6, 182, 212, 0.2); color: #38BDF8; border: 1px solid rgba(6, 182, 212, 0.35); }
+.badge-amber { background: rgba(245, 158, 11, 0.2); color: #FCD34D; border: 1px solid rgba(245, 158, 11, 0.35); }
+.badge-purple { background: rgba(168, 85, 247, 0.2); color: #C084FC; border: 1px solid rgba(168, 85, 247, 0.35); }
 
 .pavilion-icon {
   font-size: 2.2rem;
 }
 
 .pavilion-card h3 {
+  font-family: var(--font-display);
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: 600;
   color: var(--color-text-primary);
   margin-bottom: 6px;
 }
 
 .pavilion-card p {
-  font-size: 0.95rem;
+  font-size: 0.92rem;
+  line-height: 1.5;
   color: var(--color-text-secondary);
 }
 
@@ -406,95 +669,172 @@ body {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-xl);
-  padding: 28px 24px;
+  padding: clamp(14px, 2.5vh, 26px) clamp(20px, 3.5vw, 36px);
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: 24px;
+  justify-content: space-between;
+  gap: clamp(10px, 2vh, 18px);
   box-shadow: var(--shadow-md);
   position: relative;
+  flex: 1;
+  min-height: 0;
+  overflow: hidden;
+}
+
+.stage-header {
+  width: 100%;
+  max-width: 720px;
+  text-align: center;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 8px;
+  flex-shrink: 0;
 }
 
 .monty-dialogue-card {
   width: 100%;
-  max-width: 680px;
+  max-width: 720px;
   background: var(--color-surface-warm);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 16px 20px;
+  padding: 20px 28px;
   display: flex;
   align-items: center;
-  gap: 16px;
+  justify-content: center;
+  gap: 18px;
+  text-align: center;
 }
 
 .monty-avatar {
-  font-size: 2.6rem;
-  background: #fff;
-  width: 60px;
-  height: 60px;
+  font-size: 2.4rem;
+  background: var(--color-surface);
+  width: 56px;
+  height: 56px;
   border-radius: 50%;
   display: flex;
   align-items: center;
   justify-content: center;
-  border: 2px solid var(--color-border);
+  border: 1px solid var(--color-border);
   box-shadow: var(--shadow-sm);
   flex-shrink: 0;
 }
 
-.monty-speech p {
-  font-size: 1.05rem;
-  color: var(--color-text-primary);
-  font-weight: 600;
+.monty-speech {
+  flex: 1;
+  text-align: center;
 }
 
-/* 3D Doors Stage with Damped Spring Physics */
+.monty-speech p,
+#montyMessage {
+  font-family: var(--font-display);
+  font-size: clamp(1.15rem, 2.3vh, 1.55rem);
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  line-height: 1.3;
+  color: var(--color-text-primary);
+  text-align: center;
+  margin: 0;
+}
+
+/* Architectural Doors Stage */
 .doors-stage {
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 20px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: clamp(12px, 2.5vw, 24px);
   width: 100%;
   max-width: 720px;
   perspective: 1200px;
-  padding: 10px 0;
+  padding: clamp(4px, 1vh, 10px) 0;
+  flex: 1;
+  min-height: 0;
 }
 
 .stage-door-item {
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: center;
   cursor: pointer;
+  height: 100%;
+  max-height: 100%;
+  min-height: 0;
 }
 
+/* Authentic Door Casing (Jambs, Lintel, and Sill) */
 .door-frame-wrapper {
-  width: 100%;
-  aspect-ratio: 3 / 5;
-  max-width: 210px;
+  height: clamp(180px, 42vh, 325px);
+  aspect-ratio: 3 / 4.8;
+  width: auto;
+  max-width: 200px;
   position: relative;
   perspective: 1200px;
-  background: #E8DEC8;
-  border: 5px solid #5C2E15;
-  border-radius: var(--radius-md);
-  box-shadow: inset 0 0 16px rgba(0, 0, 0, 0.25), var(--shadow-md);
-  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  background: var(--color-surface-warm);
+  border: 2px solid var(--color-border);
+  border-bottom-width: 3px;
+  border-radius: 6px 6px 0 0;
+  box-shadow: 0 4px 16px rgba(38, 36, 32, 0.08), inset 0 0 0 3px #F4F1E8;
+  transition: transform 0.2s ease, box-shadow 0.2s ease, border-color 0.2s ease;
   overflow: visible;
+  flex-shrink: 0;
+}
+
+/* Grounding Door Sill / Threshold */
+.door-frame-wrapper::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: -6px;
+  right: -6px;
+  height: 6px;
+  background: #D8D2C2;
+  border: 1px solid var(--color-border);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(38, 36, 32, 0.1);
+  z-index: 5;
+}
+
+/* Left Hinge Plates */
+.door-frame-wrapper::before {
+  content: '';
+  position: absolute;
+  left: -3px;
+  top: 18%;
+  width: 5px;
+  height: 20px;
+  background: linear-gradient(180deg, #DDAE27 0%, #B8860B 100%);
+  border-radius: 2px;
+  box-shadow: 0 2px 4px rgba(38, 36, 32, 0.15), 0 115px 0 #B8860B;
+  z-index: 4;
+}
+
+.stage-door-item:hover .door-frame-wrapper {
+  transform: translateY(-4px);
+  border-color: var(--color-text-muted);
+  box-shadow: 0 8px 24px rgba(38, 36, 32, 0.12), inset 0 0 0 3px #F4F1E8;
 }
 
 .stage-door-item.selected .door-frame-wrapper {
-  box-shadow: 0 0 0 4px var(--color-amber), 0 12px 24px rgba(245, 158, 11, 0.35);
+  border-color: var(--color-amber-dark);
+  box-shadow: 0 0 0 3px var(--color-amber), 0 8px 24px rgba(38, 36, 32, 0.12);
   transform: translateY(-4px);
 }
 
 .stage-door-item.alternate .door-frame-wrapper {
-  box-shadow: 0 0 0 3px var(--color-sage), 0 8px 20px rgba(16, 185, 129, 0.35);
+  border-color: var(--color-sage-border);
+  box-shadow: 0 0 0 3px var(--color-sage), 0 8px 24px rgba(38, 36, 32, 0.12);
   animation: pulseGreen 1.6s infinite alternate;
 }
 
 @keyframes pulseGreen {
-  0% { box-shadow: 0 0 0 2px var(--color-sage); }
-  100% { box-shadow: 0 0 0 6px rgba(16, 185, 129, 0.6); }
+  0% { box-shadow: 0 0 0 2px var(--color-sage), 0 4px 12px rgba(143, 183, 143, 0.2); }
+  100% { box-shadow: 0 0 0 4px rgba(143, 183, 143, 0.5), 0 8px 20px rgba(143, 183, 143, 0.3); }
 }
 
-/* Interior Alcove (Prize is always flat, centered, and full width) */
+/* Interior Alcove (Prize reveals) */
 .door-alcove {
   position: absolute;
   inset: 0;
@@ -502,15 +842,15 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  background: radial-gradient(circle at center, #FFFDF8 0%, #EDE5D5 100%);
-  border-radius: 4px;
+  background: radial-gradient(circle at center, #FFFFFF 0%, #EFECE3 100%);
+  border-radius: 4px 4px 0 0;
   z-index: 1;
-  box-shadow: inset 0 0 18px rgba(0, 0, 0, 0.1);
+  box-shadow: inset 0 0 20px rgba(38, 36, 32, 0.12), inset 0 4px 8px rgba(38, 36, 32, 0.08);
 }
 
 .door-alcove.win {
   background: radial-gradient(circle at center, #FEF3C7 0%, #FDE68A 100%);
-  border: 2px solid var(--color-amber);
+  border: 1px solid var(--color-amber-dark);
 }
 
 .prize-spotlight {
@@ -522,85 +862,173 @@ body {
 
 .prize-emoji {
   font-size: 3.6rem;
-  filter: drop-shadow(0 4px 6px rgba(0, 0, 0, 0.15));
+  filter: drop-shadow(0 4px 10px rgba(38, 36, 32, 0.15));
   line-height: 1;
 }
 
 .prize-name {
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 1rem;
+  font-weight: 700;
   color: var(--color-text-primary);
   text-transform: uppercase;
-  letter-spacing: 0.04em;
+  letter-spacing: 0.05em;
 }
 
-/* Wooden Door Leaf (Hinged on the left side) */
+.prize-car-img {
+  width: clamp(100px, 16vw, 150px);
+  height: auto;
+  max-height: 80px;
+  object-fit: contain;
+  filter: drop-shadow(0 6px 12px rgba(38, 36, 32, 0.25));
+  animation: popCar 0.5s cubic-bezier(0.34, 1.45, 0.64, 1);
+  user-select: none;
+  pointer-events: none;
+}
+
+@keyframes popCar {
+  0% { transform: scale(0.65) translateY(8px); opacity: 0; }
+  100% { transform: scale(1) translateY(0); opacity: 1; }
+}
+
+/* Tactile Architectural Door Leaf */
 .door-leaf {
   position: absolute;
   inset: 0;
   z-index: 2;
-  background: linear-gradient(135deg, var(--door-wood), var(--door-wood-dark));
-  border: 3px solid #451A03;
-  border-radius: 4px;
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 4px 4px 0 0;
   transform-origin: left center;
   transform-style: preserve-3d;
-  transition: transform 0.75s cubic-bezier(0.34, 1.35, 0.64, 1), box-shadow 0.3s ease;
-  box-shadow: 3px 0 12px rgba(0, 0, 0, 0.3);
-  display: flex;
-  align-items: center;
-  justify-content: center;
+  transition: transform 0.75s cubic-bezier(0.34, 1.35, 0.64, 1), box-shadow 0.3s ease, border-color 0.2s ease;
+  box-shadow: var(--shadow-sm);
+  display: block;
+  padding: 14px 12px;
+  box-sizing: border-box;
 }
 
-/* Open state: Swings outward on left hinge */
+/* Open state: Swings outward on left hinge with realistic edge thickness */
 .door-leaf.open {
   transform: rotateY(-114deg);
-  box-shadow: 14px 0 24px rgba(0, 0, 0, 0.35);
+  box-shadow: 12px 0 28px rgba(38, 36, 32, 0.2), inset -2px 0 0 rgba(38, 36, 32, 0.1);
 }
 
+/* Architectural 2-Panel Shaker Door Construction */
 .door-leaf-inset {
-  width: 80%;
-  height: 86%;
-  border: 2px dashed rgba(251, 191, 36, 0.35);
-  border-radius: var(--radius-sm);
+  width: 100%;
+  height: 100%;
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+/* Lower Shaker Panel */
+.door-leaf-inset::after {
+  content: '';
+  flex: 1.35;
+  width: 100%;
+  background: #F5F2EB;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: inset 1px 2px 4px rgba(38, 36, 32, 0.06), 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+/* Upper Panel (Housing Door Numeral) */
+.door-num-brass,
+.door-num {
+  flex: 1;
+  width: 100%;
+  background: #F5F2EB;
+  border: 1px solid var(--color-border);
+  border-radius: 4px;
+  box-shadow: inset 1px 2px 4px rgba(38, 36, 32, 0.06), 0 1px 0 rgba(255, 255, 255, 0.8);
   display: flex;
   align-items: center;
   justify-content: center;
+  font-family: var(--font-display);
+  font-size: clamp(1.7rem, 4.2vh, 2.5rem);
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  color: var(--color-text-primary);
+  text-shadow: 0 1px 0 rgba(255, 255, 255, 0.8);
+  line-height: 1;
   position: relative;
 }
 
-.door-num-brass {
-  font-size: 3rem;
-  font-weight: 900;
-  color: #FEF3C7;
-  text-shadow: 0 3px 6px rgba(0, 0, 0, 0.6);
-}
-
+/* Authentic Turned Brass Hardware: Escutcheon Backplate, Knob & Keyhole */
 .door-brass-knob {
   position: absolute;
-  right: 8px;
-  width: 14px;
-  height: 14px;
-  background: radial-gradient(circle, #FEF08A, var(--door-knob));
+  right: -2px;
+  top: 52%;
+  transform: translateY(-50%);
+  width: 12px;
+  height: 38px;
+  background: linear-gradient(180deg, #F5C842 0%, #DDAE27 50%, #B8860B 100%);
+  border: 1px solid #A8811C;
+  border-radius: 6px;
+  box-shadow: 1px 2px 5px rgba(38, 36, 32, 0.25), inset 0 1px 0 rgba(255, 255, 255, 0.5);
+  z-index: 6;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Turned Brass Round Knob */
+.door-brass-knob::before {
+  content: '';
+  position: absolute;
+  top: 4px;
+  left: -4px;
+  width: 18px;
+  height: 18px;
   border-radius: 50%;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  background: radial-gradient(circle at 35% 35%, #FFF2B2 0%, #F5C842 40%, #B8860B 90%, #8C6207 100%);
+  border: 1px solid #8C6207;
+  box-shadow: 2px 3px 6px rgba(38, 36, 32, 0.35), inset -1px -1px 2px rgba(0, 0, 0, 0.35);
+}
+
+/* Keyhole Accent */
+.door-brass-knob::after {
+  content: '';
+  position: absolute;
+  bottom: 5px;
+  left: 4.5px;
+  width: 3px;
+  height: 7px;
+  background: #262420;
+  border-radius: 1px;
+  box-shadow: 0 1px 0 rgba(255, 255, 255, 0.3);
 }
 
 .stage-badge {
-  margin-top: 10px;
-  min-height: 24px;
-  font-size: 0.78rem;
+  margin-top: clamp(4px, 0.8vh, 8px);
+  min-height: 18px;
+  font-size: clamp(0.7rem, 1.3vh, 0.78rem);
   font-weight: 800;
-  padding: 4px 10px;
+  padding: 2px 8px;
   border-radius: 20px;
   text-align: center;
+  flex-shrink: 0;
 }
 
 .stage-dock {
   display: flex;
   justify-content: center;
+  align-items: center;
   width: 100%;
-  max-width: 500px;
-  min-height: 60px;
+  max-width: 480px;
+  min-height: 52px;
+  height: 52px;
+  margin-top: auto;
+  flex-shrink: 0;
+}
+
+.stage-dock .btn-squishy {
+  padding: 10px 22px;
+  font-size: 0.95rem;
+  border-radius: 999px;
 }
 
 /* --------------------------------------------------------------------------
@@ -622,26 +1050,30 @@ body {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 24px;
+  padding: clamp(16px, 2.4vh, 26px);
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  justify-content: space-between;
+  gap: clamp(10px, 1.8vh, 18px);
   box-shadow: var(--shadow-sm);
+  min-height: 0;
 }
 
 .lab-panel h3 {
-  font-size: 1.25rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: clamp(1.2rem, 2.2vh, 1.35rem);
+  font-weight: 600;
+  margin: 0;
 }
 
 .control-field {
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 6px;
 }
 
 .control-field label {
-  font-size: 0.88rem;
+  font-size: 0.85rem;
   font-weight: 700;
   color: var(--color-text-secondary);
 }
@@ -658,7 +1090,7 @@ body {
   color: var(--color-text-primary);
   border-radius: var(--radius-sm);
   padding: 8px 4px;
-  font-size: 0.85rem;
+  font-size: 0.82rem;
   font-weight: 700;
   cursor: pointer;
   transition: all 0.15s ease;
@@ -674,9 +1106,9 @@ body {
   background: var(--color-surface-warm);
   border: 1px solid var(--color-border);
   color: var(--color-text-primary);
-  padding: 10px 12px;
+  padding: 8px 12px;
   border-radius: var(--radius-sm);
-  font-size: 0.95rem;
+  font-size: 0.92rem;
   font-family: inherit;
   font-weight: 600;
 }
@@ -684,18 +1116,24 @@ body {
 .lab-charts-column {
   display: flex;
   flex-direction: column;
-  gap: 20px;
+  gap: clamp(10px, 1.6vh, 16px);
+  flex: 1;
+  min-height: 0;
+  justify-content: space-between;
 }
 
 .chart-card-warm {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 20px;
+  padding: clamp(12px, 1.8vh, 18px) clamp(16px, 2vw, 22px);
   display: flex;
   flex-direction: column;
-  gap: 14px;
+  justify-content: space-between;
+  gap: clamp(6px, 1vh, 10px);
   box-shadow: var(--shadow-sm);
+  flex: 1;
+  min-height: 0;
 }
 
 .chart-card-header {
@@ -704,15 +1142,18 @@ body {
   align-items: center;
   flex-wrap: wrap;
   gap: 8px;
+  flex-shrink: 0;
 }
 
 .chart-card-header h4 {
-  font-size: 1.1rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: clamp(0.95rem, 1.8vh, 1.15rem);
+  font-weight: 600;
+  margin: 0;
 }
 
 .legend-pill {
-  font-size: 0.8rem;
+  font-size: 0.78rem;
   font-weight: 700;
   display: inline-flex;
   align-items: center;
@@ -744,40 +1185,15 @@ canvas {
 }
 
 #barCanvas {
-  height: 190px;
+  height: clamp(90px, 15vh, 130px);
+  flex: 1;
+  min-height: 85px;
 }
 
 #convCanvas {
-  height: 230px;
-}
-
-.takeaway-banner {
-  background: #FFFBEB;
-  border: 1px solid #FCD34D;
-  border-left: 5px solid #F59E0B;
-  border-radius: var(--radius-md);
-  padding: 16px 20px;
-  display: flex;
-  align-items: center;
-  gap: 14px;
-  box-shadow: var(--shadow-sm);
-}
-
-.takeaway-icon {
-  font-size: 1.6rem;
-  flex-shrink: 0;
-  line-height: 1;
-}
-
-.takeaway-text {
-  font-size: 0.95rem;
-  color: #78350F;
-  line-height: 1.5;
-}
-
-.takeaway-text strong {
-  color: #451A03;
-  font-weight: 800;
+  height: clamp(115px, 20vh, 175px);
+  flex: 1.25;
+  min-height: 105px;
 }
 
 /* --------------------------------------------------------------------------
@@ -793,39 +1209,41 @@ canvas {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 28px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 18px;
+  gap: 20px;
   box-shadow: var(--shadow-sm);
 }
 
 .workshop-card h3 {
+  font-family: var(--font-display);
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .scaler-box {
   background: var(--color-surface-warm);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-md);
-  padding: 20px;
+  border-radius: var(--radius-lg);
+  padding: 24px 28px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
 }
 
 .scaler-slider {
   width: 100%;
   accent-color: var(--color-terracotta);
   height: 8px;
+  border-radius: 4px;
   cursor: pointer;
 }
 
 .scaler-grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  gap: 14px;
+  gap: 16px;
 }
 
 @media (max-width: 680px) {
@@ -837,25 +1255,39 @@ canvas {
 .metric-pill {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
-  border-radius: var(--radius-sm);
-  padding: 14px;
+  border-radius: var(--radius-md);
+  padding: 18px 20px;
   display: flex;
   flex-direction: column;
-  gap: 4px;
+  gap: 6px;
+  transition: border-color 0.2s ease, transform 0.2s ease;
+}
+
+.metric-pill:hover {
+  border-color: rgba(255, 255, 255, 0.2);
+  transform: translateY(-2px);
 }
 
 .metric-pill .m-label {
   font-size: 0.8rem;
   color: var(--color-text-muted);
-  font-weight: 700;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
 }
+
 .metric-pill .m-val {
-  font-size: 1.35rem;
-  font-weight: 900;
+  font-family: var(--font-display);
+  font-size: 1.4rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  line-height: 1.2;
 }
+
 .metric-pill .m-note {
-  font-size: 0.78rem;
+  font-size: 0.8rem;
   color: var(--color-text-secondary);
+  line-height: 1.4;
 }
 
 /* Set Grouping Visual */
@@ -890,12 +1322,29 @@ canvas {
 }
 
 .mini-wood-door {
-  background: var(--door-wood);
-  color: #fff;
-  padding: 10px 20px;
-  border-radius: 6px;
-  font-weight: 800;
-  font-size: 0.95rem;
+  background: var(--color-surface);
+  color: var(--color-text-primary);
+  padding: 8px 18px 8px 24px;
+  border-radius: 4px 4px 0 0;
+  border: 1px solid var(--color-border);
+  border-bottom: 3px solid #D8D2C2;
+  font-weight: 700;
+  font-size: 0.9rem;
+  position: relative;
+  box-shadow: inset 0 0 0 2px #F5F2EB, 0 2px 6px rgba(38, 36, 32, 0.06);
+}
+
+.mini-wood-door::before {
+  content: '';
+  position: absolute;
+  left: 6px;
+  top: 50%;
+  transform: translateY(-50%);
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #F5C842 0%, #DDAE27 100%);
+  box-shadow: 0 1px 2px rgba(38, 36, 32, 0.3);
 }
 
 .mini-doors-holder {
@@ -904,9 +1353,11 @@ canvas {
 }
 
 .mini-wood-door.eliminated {
-  background: #F87171;
+  background: #EFECE3;
+  color: var(--color-text-muted);
+  border-color: var(--color-border-subtle);
   text-decoration: line-through;
-  opacity: 0.7;
+  opacity: 0.6;
 }
 
 /* --------------------------------------------------------------------------
@@ -922,16 +1373,17 @@ canvas {
   background: var(--color-surface);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-lg);
-  padding: 28px;
+  padding: 32px;
   display: flex;
   flex-direction: column;
-  gap: 16px;
+  gap: 20px;
   box-shadow: var(--shadow-sm);
 }
 
 .educator-card h3 {
+  font-family: var(--font-display);
   font-size: 1.35rem;
-  font-weight: 800;
+  font-weight: 600;
 }
 
 .educator-actions-bar {
@@ -943,6 +1395,8 @@ canvas {
 
 .table-scroller {
   overflow-x: auto;
+  border-radius: var(--radius-md);
+  border: 1px solid var(--color-border);
 }
 
 .warm-truth-table {
@@ -953,23 +1407,37 @@ canvas {
 }
 
 .warm-truth-table th, .warm-truth-table td {
-  padding: 14px 16px;
+  padding: 16px 20px;
   border-bottom: 1px solid var(--color-border);
 }
 
 .warm-truth-table th {
   background: var(--color-surface-warm);
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 0.84rem;
+  font-weight: 700;
   color: var(--color-text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.04em;
+}
+
+.warm-truth-table tbody tr:hover {
+  background: rgba(255, 255, 255, 0.02);
+}
+
+.warm-truth-table tfoot td {
+  background: var(--color-surface-warm);
+  border-bottom: none;
+  padding: 16px 20px;
 }
 
 .td-win {
-  color: var(--color-sage-dark);
-  font-weight: 800;
+  color: var(--color-sage);
+  font-weight: 700;
 }
 
 .td-lose {
-  color: #DC2626;
+  color: #F87171;
   font-weight: 600;
 }
 
@@ -983,10 +1451,10 @@ canvas {
   background: var(--color-surface-warm);
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
-  padding: 16px 20px;
+  padding: 20px 24px;
   display: flex;
   flex-direction: column;
-  gap: 8px;
+  gap: 10px;
 }
 
 .inquiry-tag {
@@ -1000,8 +1468,9 @@ canvas {
 }
 
 .inquiry-title {
-  font-size: 1.05rem;
-  font-weight: 800;
+  font-family: var(--font-display);
+  font-size: 1.1rem;
+  font-weight: 600;
   color: var(--color-text-primary);
 }
 
@@ -1011,7 +1480,7 @@ canvas {
 }
 
 .inquiry-solution {
-  background: #fff;
+  background: var(--color-surface);
   border-left: 3px solid var(--color-sage);
   padding: 10px 14px;
   border-radius: 4px;
@@ -1025,4 +1494,55 @@ canvas {
   font-size: 0.85rem;
   color: var(--color-text-muted);
   padding: 20px 0;
+}
+
+/* Responsive Refinements */
+@media (max-width: 600px) {
+  .app-wrapper {
+    padding: 12px 14px 30px;
+    gap: 16px;
+  }
+  .stage-container {
+    padding: 24px 16px;
+    gap: 20px;
+  }
+  .monty-dialogue-card {
+    padding: 16px 18px;
+  }
+  #montyMessage {
+    font-size: 1.25rem;
+  }
+  .doors-stage {
+    gap: 12px;
+  }
+  .door-leaf {
+    padding: 10px 8px;
+  }
+  .door-num-brass,
+  .door-num {
+    font-size: 1.8rem;
+  }
+  .door-brass-knob {
+    width: 10px;
+    height: 30px;
+    right: -2px;
+  }
+  .door-brass-knob::before {
+    width: 14px;
+    height: 14px;
+    top: 3px;
+    left: -2px;
+  }
+  .door-brass-knob::after {
+    bottom: 3px;
+    left: 3.5px;
+    height: 5px;
+  }
+  .prize-emoji {
+    font-size: 2.5rem;
+  }
+  .btn-squishy {
+    padding: 12px 20px;
+    font-size: 0.95rem;
+  }
 }

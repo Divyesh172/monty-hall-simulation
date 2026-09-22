@@ -2,24 +2,24 @@
 
 export const TEACHER_QUESTIONS = [
   {
-    q: "Which choice gives you a better chance of winning: Keeping your door or Switching?",
-    context: "Ask this before showing any simulations or math charts.",
-    insight: "Almost everyone says 50/50! We naturally think: 'There are two doors left, so each has an equal chance.' Seeing that switching actually wins 2 out of 3 times sparks genuine curiosity."
+    q: "Keep or switch: which gives higher win probability?",
+    context: "Pose before running simulations.",
+    insight: "Most assume 50/50. Switching actually wins 2/3 (67%) because the initial pick has only a 1/3 chance of holding the car."
   },
   {
-    q: "Did your test results match your original guess?",
-    context: "Ask this after playing a few rounds on the stage and running a test in the Fast Simulator.",
-    insight: "Testing hundreds of games proves that switching consistently wins around 67% of the time. Real evidence is the best way to break the 50/50 illusion."
+    q: "Did simulation data match your intuition?",
+    context: "Review after bulk Monte Carlo trials.",
+    insight: "Empirical win rates converge to 66.7% switch and 33.3% keep over large sample sizes, breaking the 50/50 illusion."
   },
   {
-    q: "Why does the host opening a door give us valuable information?",
-    context: "Focus on the fact that the host knows where the car is.",
-    insight: "The host is not picking at random! He always avoids the car and avoids your door. When he opens a goat, he does the hard work for you by eliminating a losing door from the other pair."
+    q: "Why does Monty's reveal provide information?",
+    context: "Examine the host's constraints.",
+    insight: "The host never reveals the car. His deliberate filter channels all remaining probability into the unopened door."
   },
   {
-    q: "How can we map out every possible outcome to prove it?",
-    context: "Walk through all three doors where the car could be placed.",
-    insight: "In 2 out of 3 possibilities, your very first pick is a goat. In both of those cases, switching guarantees you win the car! Only in the 1 rare case where you started with the car does staying win."
+    q: "How does enumeration prove switching?",
+    context: "Analyze the 3 car placement scenarios.",
+    insight: "In 2 of 3 cases your initial pick is a goat; switching then guarantees the car. Keeping wins in only 1 of 3 cases."
   }
 ];
 
@@ -33,7 +33,7 @@ export function renderTeacherQuestions(containerId) {
       <h4 class="inquiry-title">${item.q}</h4>
       <p class="inquiry-context"><strong>When to ask:</strong> ${item.context}</p>
       <div class="inquiry-solution">
-        <strong>The Simple Explanation:</strong> ${item.insight}
+        <strong>Insight:</strong> ${item.insight}
       </div>
     </div>
   `).join('');

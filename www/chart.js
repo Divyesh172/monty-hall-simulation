@@ -61,7 +61,7 @@ export class SimulationCharts {
     const switchBarH = chartH * switchRate;
 
     // Grid baseline
-    ctx.strokeStyle = '#E5DACB';
+    ctx.strokeStyle = '#DBD5C6';
     ctx.lineWidth = 1.5 * dpr;
     ctx.beginPath();
     ctx.moveTo(padX, padTop + chartH);
@@ -70,7 +70,7 @@ export class SimulationCharts {
 
     // 50% line
     const y50 = padTop + chartH * 0.5;
-    ctx.strokeStyle = '#D5C8B5';
+    ctx.strokeStyle = '#E7E2D5';
     ctx.setLineDash([4 * dpr, 4 * dpr]);
     ctx.beginPath();
     ctx.moveTo(padX, y50);
@@ -80,7 +80,7 @@ export class SimulationCharts {
 
     // 66.7% line (2/3 target)
     const y66 = padTop + chartH * (1 - 2 / 3);
-    ctx.strokeStyle = 'rgba(16, 185, 129, 0.45)';
+    ctx.strokeStyle = 'rgba(143, 183, 143, 0.7)';
     ctx.setLineDash([4 * dpr, 4 * dpr]);
     ctx.beginPath();
     ctx.moveTo(padX, y66);
@@ -90,7 +90,7 @@ export class SimulationCharts {
 
     // 33.3% line (1/3 target)
     const y33 = padTop + chartH * (1 - 1 / 3);
-    ctx.strokeStyle = 'rgba(2, 132, 199, 0.45)';
+    ctx.strokeStyle = 'rgba(40, 83, 107, 0.7)';
     ctx.setLineDash([4 * dpr, 4 * dpr]);
     ctx.beginPath();
     ctx.moveTo(padX, y33);
@@ -98,20 +98,14 @@ export class SimulationCharts {
     ctx.stroke();
     ctx.setLineDash([]);
 
-    // Stay Bar (Teal #0284C7)
-    const gradStay = ctx.createLinearGradient(0, padTop + chartH - stayBarH, 0, padTop + chartH);
-    gradStay.addColorStop(0, '#0284C7');
-    gradStay.addColorStop(1, '#0369A1');
-    ctx.fillStyle = gradStay;
+    // Stay Bar (Petrol Slate #28536B)
+    ctx.fillStyle = '#28536B';
     ctx.beginPath();
     ctx.roundRect(stayX, padTop + chartH - stayBarH, barW, stayBarH, [8 * dpr, 8 * dpr, 0, 0]);
     ctx.fill();
 
-    // Switch Bar (Sage Green #10B981)
-    const gradSwitch = ctx.createLinearGradient(0, padTop + chartH - switchBarH, 0, padTop + chartH);
-    gradSwitch.addColorStop(0, '#10B981');
-    gradSwitch.addColorStop(1, '#059669');
-    ctx.fillStyle = gradSwitch;
+    // Switch Bar (Sage Olive #8FB78F)
+    ctx.fillStyle = '#8FB78F';
     ctx.beginPath();
     ctx.roundRect(switchX, padTop + chartH - switchBarH, barW, switchBarH, [8 * dpr, 8 * dpr, 0, 0]);
     ctx.fill();
@@ -120,25 +114,25 @@ export class SimulationCharts {
     ctx.textAlign = 'center';
 
     // Stay Label
-    ctx.font = `bold ${13 * dpr}px 'Plus Jakarta Sans', sans-serif`;
-    ctx.fillStyle = '#0284C7';
+    ctx.font = `bold ${13 * dpr}px 'Inter', sans-serif`;
+    ctx.fillStyle = '#28536B';
     ctx.fillText(`${(stayRate * 100).toFixed(1)}%`, stayX + barW / 2, padTop + chartH - stayBarH - 8 * dpr);
-    ctx.font = `bold ${11 * dpr}px 'Plus Jakarta Sans', sans-serif`;
-    ctx.fillStyle = '#586071';
-    ctx.fillText('KEEP DOOR', stayX + barW / 2, padTop + chartH + 18 * dpr);
-    ctx.font = `${10 * dpr}px 'Plus Jakarta Sans', sans-serif`;
-    ctx.fillStyle = '#8A92A3';
+    ctx.font = `bold ${11 * dpr}px 'Inter', sans-serif`;
+    ctx.fillStyle = '#262420';
+    ctx.fillText('Keep', stayX + barW / 2, padTop + chartH + 18 * dpr);
+    ctx.font = `${10 * dpr}px 'Inter', sans-serif`;
+    ctx.fillStyle = '#A39C8D';
     ctx.fillText(`(${stats.stay_wins || 0} wins)`, stayX + barW / 2, padTop + chartH + 32 * dpr);
 
     // Switch Label
-    ctx.font = `bold ${13 * dpr}px 'Plus Jakarta Sans', sans-serif`;
-    ctx.fillStyle = '#10B981';
+    ctx.font = `bold ${13 * dpr}px 'Inter', sans-serif`;
+    ctx.fillStyle = '#2F4A34';
     ctx.fillText(`${(switchRate * 100).toFixed(1)}%`, switchX + barW / 2, padTop + chartH - switchBarH - 8 * dpr);
-    ctx.font = `bold ${11 * dpr}px 'Plus Jakarta Sans', sans-serif`;
-    ctx.fillStyle = '#586071';
-    ctx.fillText('SWITCH DOOR', switchX + barW / 2, padTop + chartH + 18 * dpr);
-    ctx.font = `${10 * dpr}px 'Plus Jakarta Sans', sans-serif`;
-    ctx.fillStyle = '#8A92A3';
+    ctx.font = `bold ${11 * dpr}px 'Inter', sans-serif`;
+    ctx.fillStyle = '#262420';
+    ctx.fillText('Switch', switchX + barW / 2, padTop + chartH + 18 * dpr);
+    ctx.font = `${10 * dpr}px 'Inter', sans-serif`;
+    ctx.fillStyle = '#A39C8D';
     ctx.fillText(`(${stats.switch_wins || 0} wins)`, switchX + barW / 2, padTop + chartH + 32 * dpr);
   }
 
@@ -166,10 +160,10 @@ export class SimulationCharts {
       const isTarget = Math.abs(val - 0.3333) < 0.001 || Math.abs(val - 0.6667) < 0.001;
 
       if (isTarget) {
-        ctx.strokeStyle = val > 0.5 ? 'rgba(16, 185, 129, 0.45)' : 'rgba(2, 132, 199, 0.45)';
+        ctx.strokeStyle = val > 0.5 ? 'rgba(143, 183, 143, 0.7)' : 'rgba(40, 83, 107, 0.7)';
         ctx.setLineDash([4 * dpr, 4 * dpr]);
       } else {
-        ctx.strokeStyle = '#EBE2D5';
+        ctx.strokeStyle = '#E7E2D5';
         ctx.setLineDash([]);
       }
 
@@ -179,8 +173,8 @@ export class SimulationCharts {
       ctx.stroke();
 
       // Axis labels
-      ctx.fillStyle = isTarget ? (val > 0.5 ? '#10B981' : '#0284C7') : '#8A92A3';
-      ctx.font = `bold ${9 * dpr}px 'Plus Jakarta Sans', sans-serif`;
+      ctx.fillStyle = isTarget ? (val > 0.5 ? '#2F4A34' : '#28536B') : '#A39C8D';
+      ctx.font = `bold ${9 * dpr}px 'Inter', sans-serif`;
       ctx.textAlign = 'right';
       const label = isTarget ? (val > 0.5 ? '2/3 (66.7%)' : '1/3 (33.3%)') : `${Math.round(val * 100)}%`;
       ctx.fillText(label, padLeft - 8 * dpr, y + 3.5 * dpr);
@@ -189,17 +183,17 @@ export class SimulationCharts {
 
     const len = stayArray ? stayArray.length : 0;
     if (len < 2) {
-      ctx.fillStyle = '#8A92A3';
-      ctx.font = `bold ${12 * dpr}px 'Plus Jakarta Sans', sans-serif`;
+      ctx.fillStyle = '#A39C8D';
+      ctx.font = `bold ${12 * dpr}px 'Inter', sans-serif`;
       ctx.textAlign = 'center';
-      ctx.fillText('Click Simulate Games to watch the win rates', padLeft + chartW / 2, padTop + chartH / 2);
+      ctx.fillText('Run simulation to see convergence', padLeft + chartW / 2, padTop + chartH / 2);
       return;
     }
 
     const stepX = chartW / (len - 1);
 
-    // Switch line (Sage Green #10B981)
-    ctx.strokeStyle = '#10B981';
+    // Switch line (Sage Olive #8FB78F)
+    ctx.strokeStyle = '#8FB78F';
     ctx.lineWidth = 2.5 * dpr;
     ctx.beginPath();
     for (let i = 0; i < len; i++) {
@@ -210,8 +204,8 @@ export class SimulationCharts {
     }
     ctx.stroke();
 
-    // Stay line (Teal #0284C7)
-    ctx.strokeStyle = '#0284C7';
+    // Stay line (Petrol Slate #28536B)
+    ctx.strokeStyle = '#28536B';
     ctx.lineWidth = 2.5 * dpr;
     ctx.beginPath();
     for (let i = 0; i < len; i++) {
@@ -223,12 +217,12 @@ export class SimulationCharts {
     ctx.stroke();
 
     // Bottom axis labels
-    ctx.fillStyle = '#8A92A3';
-    ctx.font = `bold ${9 * dpr}px 'Plus Jakarta Sans', sans-serif`;
+    ctx.fillStyle = '#94A3B8';
+    ctx.font = `bold ${9 * dpr}px 'Inter', sans-serif`;
     ctx.textAlign = 'left';
     ctx.fillText('1', padLeft, padTop + chartH + 18 * dpr);
     ctx.textAlign = 'center';
-    ctx.fillText(`Games Played: ${(totalTrials || len).toLocaleString()}`, padLeft + chartW / 2, padTop + chartH + 20 * dpr);
+    ctx.fillText(`${(totalTrials || len).toLocaleString()} trials`, padLeft + chartW / 2, padTop + chartH + 20 * dpr);
     ctx.textAlign = 'right';
     ctx.fillText(`${(totalTrials || len).toLocaleString()}`, padLeft + chartW, padTop + chartH + 18 * dpr);
   }

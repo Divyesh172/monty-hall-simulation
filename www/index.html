@@ -5,7 +5,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no, viewport-fit=cover" />
   <title>The Monty Hall Game &mdash; An Interactive Math Adventure</title>
   <meta name="description" content="A warm, tactile, and delightful interactive science exhibit exploring the famous Monty Hall problem." />
-  <link rel="stylesheet" href="styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600&family=Sora:wght@500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="styles.css?v=6" />
   <link rel="manifest" href="manifest.json" />
   <meta name="theme-color" content="#FBF8F3" />
 </head>
@@ -15,20 +18,19 @@
     <header class="top-nav">
       <div class="breadcrumb-area">
         <a href="#/" class="nav-home-btn" title="Return to Home">
-          <span>🏛️</span>
-          <span>Exhibit Home</span>
+          <span>Monty Hall</span>
         </a>
         <span class="breadcrumb-separator">/</span>
-        <span id="breadcrumbCurrent" class="current-page-label">Welcome</span>
+        <span id="breadcrumbCurrent" class="current-page-label">Home</span>
       </div>
 
       <div class="nav-telemetry">
         <div class="session-badge-pill" id="sessionPill" title="Your live game record">
-          <span>Games: <strong id="navTotalPlays">0</strong></span>
+          <span><strong id="navTotalPlays">0</strong> played</span>
           <span>&bull;</span>
-          <span style="color: var(--color-sage-dark);">Switch Wins: <strong id="navSwitchWins">0</strong></span>
+          <span style="color: var(--color-sage-dark);"><strong id="navSwitchWins">0</strong> switch wins</span>
           <span>&bull;</span>
-          <span style="color: var(--color-teal-dark);">Keep Wins: <strong id="navStayWins">0</strong></span>
+          <span style="color: var(--color-teal-dark);"><strong id="navStayWins">0</strong> keep wins</span>
         </div>
 
         <button id="btnMusicToggle" class="icon-circle-btn" title="Music On/Off">
@@ -50,60 +52,50 @@
       <section id="view-hub" class="page-view active">
         <div class="rotunda-hero">
           <div class="rotunda-hero-text">
-            <span class="hero-tag">Interactive Probability Challenge</span>
-            <h2>The Monty Hall Paradox</h2>
-            <p>Behind one door is a brand-new sports car. Behind the other two are goats. Can you beat the game show odds?</p>
+            <span class="hero-tag">PROBABILITY PARADOX</span>
+            <h2>Beat the game show odds.</h2>
+            <p>One sports car. Two goats. Switching doubles your odds—can you prove it?</p>
           </div>
-          <div class="rotunda-illustration">🚗🚪🐐</div>
         </div>
 
         <div class="pavilions-grid">
           <!-- Card 1 -->
-          <a href="#/game-show" class="pavilion-card">
-            <div>
-              <div class="pavilion-header">
-                <span class="pavilion-badge badge-orange">Interactive Game</span>
-                <span class="pavilion-icon">🎭</span>
-              </div>
-              <h3>1. Play the Game</h3>
-              <p>Pick a door, watch the host reveal a goat, and make the big decision: Should you keep your door or switch?</p>
+          <a href="#/game-show" class="pavilion-card card-yellow">
+            <div class="card-top">
+              <span class="card-num">01</span>
+              <span class="card-arrow">→</span>
             </div>
-            <div class="pavilion-footer">
-              <span>Play Now ➔</span>
-              <span id="hubGameBadge">0 games played</span>
+            <div class="card-body">
+              <h3>Play the Game</h3>
+              <p>Test your intuition in a live three-door round against the host.</p>
             </div>
+            <div class="card-meta" id="hubGameBadge">0 played</div>
           </a>
 
           <!-- Card 2 -->
-          <a href="#/laboratory" class="pavilion-card">
-            <div>
-              <div class="pavilion-header">
-                <span class="pavilion-badge badge-teal">Fast Simulator</span>
-                <span class="pavilion-icon">⚡</span>
-              </div>
-              <h3>2. Automated Simulator</h3>
-              <p>Don't just take our word for it! Simulate up to 100,000 games in seconds to see the true win rates stabilize.</p>
+          <a href="#/laboratory" class="pavilion-card card-cyan">
+            <div class="card-top">
+              <span class="card-num">02</span>
+              <span class="card-arrow">→</span>
             </div>
-            <div class="pavilion-footer">
-              <span>Run Tests ➔</span>
-              <span>Instant Simulation</span>
+            <div class="card-body">
+              <h3>Simulate at Scale</h3>
+              <p>Run up to 100,000 automated rounds to see the 2/3 win rate converge.</p>
             </div>
+            <div class="card-meta">Monte Carlo Engine</div>
           </a>
 
           <!-- Card 3 -->
-          <a href="#/intuition" class="pavilion-card">
-            <div>
-              <div class="pavilion-header">
-                <span class="pavilion-badge badge-amber">The Aha! Moment</span>
-                <span class="pavilion-icon">🧠</span>
-              </div>
-              <h3>3. Why Switching Works</h3>
-              <p>Why isn't it 50/50? Scale the game to 100 doors to make the math completely obvious in seconds.</p>
+          <a href="#/intuition" class="pavilion-card card-violet">
+            <div class="card-top">
+              <span class="card-num">03</span>
+              <span class="card-arrow">→</span>
             </div>
-            <div class="pavilion-footer">
-              <span>See the Secret ➔</span>
-              <span>100-Doors Demo</span>
+            <div class="card-body">
+              <h3>The 100-Door Proof</h3>
+              <p>Scale to 100 doors to reveal why the host's filter shifts the odds.</p>
             </div>
+            <div class="card-meta">Visual Proof</div>
           </a>
         </div>
       </section>
@@ -113,12 +105,9 @@
            =================================================================== -->
       <section id="view-game-show" class="page-view">
         <div class="stage-container">
-          <!-- Monty Dialogue -->
-          <div class="monty-dialogue-card">
-            <div class="monty-avatar">🎩</div>
-            <div class="monty-speech">
-              <p id="montyMessage">"Welcome to the show! Behind one of these three doors is a <strong>Sports Car</strong>, and behind the other two are <strong>Goats</strong>. Click any door to pick it!"</p>
-            </div>
+          <!-- Stage Prompt -->
+          <div class="stage-header">
+            <h2 id="montyMessage" class="stage-prompt">Pick a door. One holds a sports car; two hold goats.</h2>
           </div>
 
           <!-- 3D Doors Stage -->
@@ -147,8 +136,8 @@
               <div class="door-frame-wrapper">
                 <div class="door-alcove" id="stageAlcove1">
                   <div class="prize-spotlight">
-                    <span class="prize-emoji">🚗</span>
-                    <span class="prize-name">Car</span>
+                    <img src="assets/sports-car.png" alt="Sports Car" class="prize-car-img" />
+                    <span class="prize-name" style="color: var(--color-amber-dark);">Sports Car!</span>
                   </div>
                 </div>
                 <div class="door-leaf" id="stageLeaf1">
@@ -185,18 +174,16 @@
           <div class="stage-dock">
             <div id="dockChoices" style="display: none; width: 100%; display: flex; gap: 14px;">
               <button id="btnStayStage" class="btn-squishy btn-squishy-stay" style="flex: 1;">
-                <span>✋ KEEP</span>
-                <small id="stayDoorText">Door 1</small>
+                Keep <span id="stayDoorText">Door 1</span>
               </button>
               <button id="btnSwitchStage" class="btn-squishy btn-squishy-switch" style="flex: 1;">
-                <span>🔄 SWITCH</span>
-                <small id="switchDoorText">Door 2</small>
+                Switch to <span id="switchDoorText">Door 2</span>
               </button>
             </div>
 
             <div id="dockNext" style="display: none;">
               <button id="btnNextRoundStage" class="btn-squishy btn-squishy-primary">
-                Play Next Round ➔
+                Next round ➔
               </button>
             </div>
           </div>
@@ -210,13 +197,10 @@
         <div class="lab-layout">
           <!-- Control Panel -->
           <div class="lab-panel">
-            <h3>⚡ Fast Simulator</h3>
-            <p style="font-size: 0.9rem; color: var(--color-text-secondary);">
-              Test thousands of games in the blink of an eye to see the mathematical truth in action.
-            </p>
+            <h3>Monte Carlo Simulator</h3>
 
             <div class="control-field">
-              <label>How Many Games to Test:</label>
+              <label>Simulations:</label>
               <div class="gear-presets">
                 <button class="gear-btn" data-trials="100">100</button>
                 <button class="gear-btn active" data-trials="1000">1,000</button>
@@ -227,18 +211,15 @@
             </div>
 
             <div class="control-field">
-              <label>Host Rules:</label>
+              <label>Host Mode:</label>
               <select id="labHostMode" class="styled-select">
-                <option value="0">Normal Game (Host always shows a goat)</option>
-                <option value="1">Clumsy Host (Host opens a door at random)</option>
+                <option value="0">Standard (Host reveals goat)</option>
+                <option value="1">Random (Host can reveal car)</option>
               </select>
-              <small style="font-size: 0.8rem; color: var(--color-text-muted); line-height: 1.4;">
-                If a clumsy host opens a door at random and accidentally reveals the car, the round is cancelled. When this happens, the switch advantage drops to 50/50. This proves the host's secret knowledge is what creates the 2-in-3 advantage!
-              </small>
             </div>
 
             <button id="btnLabRun" class="btn-squishy btn-squishy-primary" style="width: 100%;">
-              ▶ Simulate Games
+              Run simulation ➔
             </button>
           </div>
 
@@ -247,8 +228,8 @@
             <!-- Win Rate Bars -->
             <div class="chart-card-warm">
               <div class="chart-card-header">
-                <h4>Win Rates: Switch vs. Keep</h4>
-                <span style="font-size: 0.82rem; font-weight: 700; color: var(--color-sage-dark);">Expected: Keep 33% | Switch 67%</span>
+                <h4>Win Rates</h4>
+                <span style="font-size: 0.82rem; font-weight: 700; color: var(--color-sage-dark);">Expected: 33% keep • 67% switch</span>
               </div>
               <canvas id="barCanvas"></canvas>
             </div>
@@ -256,21 +237,13 @@
             <!-- Convergence Graph -->
             <div class="chart-card-warm">
               <div class="chart-card-header">
-                <h4>Win Rates Over Time (Watch Them Stabilize!)</h4>
+                <h4>Convergence Over Time</h4>
                 <div style="display: flex; gap: 14px;">
                   <span class="legend-pill sage">Switching</span>
                   <span class="legend-pill teal">Keeping</span>
                 </div>
               </div>
               <canvas id="convCanvas"></canvas>
-            </div>
-
-            <!-- Takeaway Banner -->
-            <div class="takeaway-banner" id="labTakeaway">
-              <span class="takeaway-icon">💡</span>
-              <div class="takeaway-text">
-                <strong>Key Takeaway:</strong> Switching gives you a <strong>2 in 3 (67%)</strong> chance of driving away with the car, while keeping your first door only wins <strong>1 in 3 (33%)</strong> times!
-              </div>
             </div>
           </div>
         </div>
@@ -283,64 +256,62 @@
         <div class="intuition-layout">
           <!-- 100 Doors Scaler Card -->
           <div class="workshop-card">
-            <h3>🔑 The 100-Doors Trick (Why Switching Always Wins)</h3>
+            <h3>The 100-Door Thought Experiment</h3>
             <p style="color: var(--color-text-secondary); font-size: 0.95rem;">
-              With only 3 doors, our intuition tricks us into thinking: <em>"There are 2 doors left, so it must be 50/50!"</em><br>
-              To see why that's wrong, imagine playing the exact same game with <strong>100 doors</strong> instead:
+              Two doors left does not mean 50/50. Scale up to 100 doors to see why:
             </p>
 
             <div class="scaler-box">
               <div style="display: flex; justify-content: space-between; font-weight: 800;">
-                <span>Total Doors:</span>
-                <span id="scalerDoorsLabel" style="color: var(--color-terracotta); font-size: 1.15rem;">100 Doors</span>
+                <span id="scalerDoorsLabel" style="color: var(--color-terracotta); font-size: 1.15rem;">Doors: 100</span>
               </div>
               <input type="range" id="scalerRange" class="scaler-slider" min="3" max="100" value="100" step="1" />
 
               <div class="scaler-grid">
                 <div class="metric-pill">
-                  <span class="m-label">Your Initial Pick (Keep)</span>
-                  <span class="m-val" style="color: var(--color-teal);" id="scalerStayPct">1 / 100 (1.0%)</span>
-                  <span class="m-note">You almost certainly picked a goat!</span>
+                  <span class="m-label">Initial Pick</span>
+                  <span class="m-val" style="color: var(--color-teal);" id="scalerStayPct">1 / 100 (1%)</span>
+                  <span class="m-note">Almost surely a goat</span>
                 </div>
                 <div class="metric-pill">
-                  <span class="m-label">The Host Removes</span>
+                  <span class="m-label">Host Opens</span>
                   <span class="m-val" id="scalerGoatsOut">98 Goats</span>
-                  <span class="m-note">The host intentionally skips the car.</span>
+                  <span class="m-note">Intentionally skips car</span>
                 </div>
                 <div class="metric-pill">
-                  <span class="m-label">If You Switch</span>
-                  <span class="m-val" style="color: var(--color-sage-dark);" id="scalerSwitchPct">99 / 100 (99.0%)</span>
-                  <span class="m-note">Virtually guaranteed to win!</span>
+                  <span class="m-label">Switch Target</span>
+                  <span class="m-val" style="color: var(--color-sage-dark);" id="scalerSwitchPct">99 / 100 (99%)</span>
+                  <span class="m-note">Guaranteed car</span>
                 </div>
               </div>
             </div>
           </div>
 
-          <!-- Set Grouping Model -->
+          <!-- Set Partition Model -->
           <div class="workshop-card">
-            <h3>📦 Your 1 Door vs. Both Other Doors</h3>
+            <h3>Set Partition Model</h3>
             <p style="color: var(--color-text-secondary); font-size: 0.95rem;">
-              Instead of thinking door-by-door, think of choosing between your <strong>Single Door</strong> and the <strong>Entire Rest of the Board</strong>:
+              Choose between your single door and all other doors combined:
             </p>
 
             <div class="set-grouping-arena">
               <div class="group-pod">
-                <h4>Your Single Door</h4>
+                <h4>Your Door</h4>
                 <div class="mini-wood-door">Door 1</div>
-                <strong style="color: var(--color-teal); font-size: 1.1rem;">Chance: 1 in 3 (33%)</strong>
+                <strong style="color: var(--color-teal); font-size: 1.1rem;">1 in 3 (33%)</strong>
               </div>
 
               <div style="font-size: 1.5rem; font-weight: 900; color: var(--color-text-muted);">VS</div>
 
               <div class="group-pod">
-                <h4>The Other Doors (Combined)</h4>
+                <h4>Remaining Doors</h4>
                 <div class="mini-doors-holder">
                   <div class="mini-wood-door">Door 2</div>
                   <div class="mini-wood-door eliminated">Door 3 (Goat)</div>
                 </div>
-                <strong style="color: var(--color-sage-dark); font-size: 1.1rem;">Combined Chance: 2 in 3 (67%)</strong>
+                <strong style="color: var(--color-sage-dark); font-size: 1.1rem;">2 in 3 (67%)</strong>
                 <p style="font-size: 0.85rem; color: var(--color-text-secondary); text-align: center; margin-top: 4px;">
-                  When the host eliminates Door 3, that 67% chance doesn't disappear &mdash; it all gathers into Door 2!
+                  Eliminating Door 3 concentrates the entire 67% chance onto Door 2.
                 </p>
               </div>
             </div>
@@ -356,25 +327,25 @@
           <!-- Truth Table -->
           <div class="educator-card">
             <div style="display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 10px;">
-              <h3>📋 All 3 Possible Game Outcomes</h3>
+              <h3>Truth Table Proof</h3>
               <button id="btnExportCSV" class="btn-squishy btn-squishy-secondary" style="font-size: 0.85rem; padding: 8px 16px;">
-                📥 Save Score as CSV
+                Export CSV ↗
               </button>
             </div>
             <p style="color: var(--color-text-secondary); font-size: 0.92rem;">
-              Let's suppose you always pick <strong>Door 1</strong> as your first choice:
+              Assuming initial pick is Door 1:
             </p>
 
             <div class="table-scroller">
               <table class="warm-truth-table">
                 <thead>
                   <tr>
-                    <th>Possibility</th>
-                    <th>Car Location</th>
-                    <th>Your Initial Pick</th>
-                    <th>Host Must Show</th>
-                    <th>If You KEEP</th>
-                    <th>If You SWITCH</th>
+                    <th>Scenario</th>
+                    <th>Car</th>
+                    <th>Pick</th>
+                    <th>Host Opens</th>
+                    <th>Keep Result</th>
+                    <th>Switch Result</th>
                   </tr>
                 </thead>
                 <tbody>
@@ -383,7 +354,7 @@
                     <td>Behind Door 1</td>
                     <td>Door 1 (Car)</td>
                     <td>Door 2 or Door 3</td>
-                    <td class="td-win">WIN 🚗</td>
+                    <td class="td-win">WIN 🏎️</td>
                     <td class="td-lose">LOSE 🐐</td>
                   </tr>
                   <tr>
@@ -392,7 +363,7 @@
                     <td>Door 1 (Goat)</td>
                     <td>Door 3 (Goat)</td>
                     <td class="td-lose">LOSE 🐐</td>
-                    <td class="td-win">WIN 🚗</td>
+                    <td class="td-win">WIN 🏎️</td>
                   </tr>
                   <tr>
                     <td><strong>Scenario 3</strong></td>
@@ -400,14 +371,14 @@
                     <td>Door 1 (Goat)</td>
                     <td>Door 2 (Goat)</td>
                     <td class="td-lose">LOSE 🐐</td>
-                    <td class="td-win">WIN 🚗</td>
+                    <td class="td-win">WIN 🏎️</td>
                   </tr>
                 </tbody>
                 <tfoot>
                   <tr>
-                    <td colspan="4"><strong>Summary:</strong></td>
-                    <td style="font-weight: 800; color: var(--color-teal); font-size: 1.05rem;">Wins 1 in 3 (33%)</td>
-                    <td style="font-weight: 800; color: var(--color-sage-dark); font-size: 1.05rem;">Wins 2 in 3 (67%)</td>
+                    <td colspan="4"><strong>Win rate:</strong></td>
+                    <td style="font-weight: 800; color: var(--color-teal); font-size: 1.05rem;">1/3 (33%)</td>
+                    <td style="font-weight: 800; color: var(--color-sage-dark); font-size: 1.05rem;">2/3 (67%)</td>
                   </tr>
                 </tfoot>
               </table>
@@ -416,20 +387,15 @@
 
           <!-- Inquiry Questions -->
           <div class="educator-card">
-            <h3>🗣️ Discussion Questions</h3>
+            <h3>Discussion Prompts</h3>
             <p style="color: var(--color-text-secondary); font-size: 0.92rem;">
-              Great questions to think through or use in classroom discussions:
+              Core conceptual checks:
             </p>
             <div id="inquiryContainer" class="inquiry-deck"></div>
           </div>
         </div>
       </section>
     </main>
-
-    <!-- Footer -->
-    <footer class="app-footer-warm">
-      <span>The Monty Hall Game &bull; An Interactive Math Exhibit &bull; Made with Clean Code</span>
-    </footer>
   </div>
 
   <script type="module" src="app.js"></script>

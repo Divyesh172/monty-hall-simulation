@@ -61,11 +61,11 @@ async function initApp() {
 // CLIENT-SIDE HASH ROUTER
 // -----------------------------------------------------------------------------
 const ROUTES = {
-  '#/': { viewId: 'view-hub', title: 'Exhibit Rotunda' },
-  '#/game-show': { viewId: 'view-game-show', title: 'The Game Show' },
-  '#/laboratory': { viewId: 'view-laboratory', title: 'The Laboratory' },
-  '#/intuition': { viewId: 'view-intuition', title: 'The Intuition Workshop' },
-  '#/educator': { viewId: 'view-educator', title: "The Educator's Deck" }
+  '#/': { viewId: 'view-hub', title: 'Home' },
+  '#/game-show': { viewId: 'view-game-show', title: 'Game Show' },
+  '#/laboratory': { viewId: 'view-laboratory', title: 'Laboratory' },
+  '#/intuition': { viewId: 'view-intuition', title: 'Intuition' },
+  '#/educator': { viewId: 'view-educator', title: 'Educator' }
 };
 
 function setupRouter() {
@@ -110,6 +110,10 @@ function handleRouteChange() {
   if (breadcrumbEl) {
     breadcrumbEl.innerText = route.title;
   }
+
+  // Toggle zero-scroll single-page mode on body for Game Show and Laboratory
+  document.body.classList.toggle('view-game-active', route.viewId === 'view-game-show');
+  document.body.classList.toggle('view-lab-active', route.viewId === 'view-laboratory');
 
   // Refresh charts when entering the laboratory
   if (route.viewId === 'view-laboratory' && charts) {
@@ -195,7 +199,7 @@ function revealHostGoatDoor(hostDoor) {
   }
 
   const hostBadge = document.getElementById(`stageBadge${hostDoor}`);
-  hostBadge.innerText = 'MONTY REVEALED (GOAT)';
+  hostBadge.innerText = 'GOAT REVEALED';
   hostBadge.style.background = '#EF4444';
   hostBadge.style.color = '#fff';
 
@@ -203,15 +207,12 @@ function revealHostGoatDoor(hostDoor) {
   const altDoor = currentRoundData.alternate_door;
   document.querySelector(`.stage-door-item[data-door="${altDoor}"]`).classList.add('alternate');
   const altBadge = document.getElementById(`stageBadge${altDoor}`);
-  altBadge.innerText = 'SWITCH TARGET';
+  altBadge.innerText = 'SWITCH TO THIS';
   altBadge.style.background = 'var(--color-sage)';
   altBadge.style.color = '#fff';
 
-  // Monty Speech
-  document.getElementById('montyMessage').innerHTML = `
-    "I've opened <strong>Door ${hostDoor + 1}</strong> to show you a Goat!<br>
-    Now, the pivotal question: Do you want to <strong>KEEP</strong> Door ${selectedDoor + 1}, or <strong>SWITCH</strong> to Door ${altDoor + 1}?"
-  `;
+  // Host Speech
+  document.getElementById('montyMessage').innerText = `Door ${hostDoor + 1} is a goat. Keep Door ${selectedDoor + 1} or switch to Door ${altDoor + 1}?`;
 
   document.getElementById('stayDoorText').innerText = `Door ${selectedDoor + 1}`;
   document.getElementById('switchDoorText').innerText = `Door ${altDoor + 1}`;
@@ -238,7 +239,7 @@ function handleStageDecision(switched) {
         alcove.className = 'door-alcove win';
         alcove.innerHTML = `
           <div class="prize-spotlight">
-            <span class="prize-emoji">🚗</span>
+            <img src="assets/sports-car.png" alt="Sports Car" class="prize-car-img" />
             <span class="prize-name" style="color: var(--color-amber-dark);">Sports Car!</span>
           </div>
         `;
@@ -264,21 +265,17 @@ function handleStageDecision(switched) {
 
   // Outcome Badge
   const finalBadge = document.getElementById(`stageBadge${finalDoor}`);
-  finalBadge.innerText = won ? 'WINNER! 🎉' : 'GOAT 🐐';
+  finalBadge.innerText = won ? 'CAR! 🏎️' : 'GOAT 🐐';
   finalBadge.style.background = won ? 'var(--color-sage)' : '#EF4444';
   finalBadge.style.color = '#fff';
 
   // Audio & Host reaction
   if (won) {
     sound.playVictoryFanfare(); // Full game-show brass fanfare & chimes!
-    document.getElementById('montyMessage').innerHTML = `
-      🎉 <strong>SPECTACULAR!</strong> You ${switched ? 'SWITCHED' : 'KEPT YOUR DOOR'} and won the brand-new Sports Car!
-    `;
+    document.getElementById('montyMessage').innerText = `🎉 Car won! ${switched ? 'Switching' : 'Staying'} paid off.`;
   } else {
     sound.playSadTrombone(); // Comical wah-wah-wah-waaah!
-    document.getElementById('montyMessage').innerHTML = `
-      🐐 <strong>Baah!</strong> You ${switched ? 'SWITCHED' : 'KEPT YOUR DOOR'} and found a goat. The car was behind Door ${currentRoundData.car_door + 1}.
-    `;
+    document.getElementById('montyMessage').innerText = `🐐 Goat. The car was behind Door ${currentRoundData.car_door + 1}.`;
   }
 
   // Update session stats
@@ -312,8 +309,7 @@ function resetStageRound() {
     b.style.background = 'transparent';
   }
 
-  document.getElementById('montyMessage').innerHTML =
-    '"Choose a door! Behind one is the <strong>Sports Car</strong>, behind two are <strong>Goats</strong>."';
+  document.getElementById('montyMessage').innerText = 'Pick a door. One holds a sports car; two hold goats.';
   document.getElementById('dockChoices').style.display = 'none';
   document.getElementById('dockNext').style.display = 'none';
 }
@@ -376,7 +372,7 @@ function setupIntuitionScaler() {
 
   slider.addEventListener('input', () => {
     const n = parseInt(slider.value, 10);
-    label.innerText = `${n} Doors`;
+    label.innerText = `Doors: ${n}`;
 
     const stayPct = ((1 / n) * 100).toFixed(1);
     const switchPct = (((n - 1) / n) * 100).toFixed(1);
